@@ -8,7 +8,7 @@ const RouterConfig = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Form/>} />
-                <Route path='*' element={<Page404/>} />
+                <Route path='*' element={<Page404/>} status={404} />
             </Routes>
         </Router>
     );

@@ -41,7 +41,10 @@ const Form = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(() => {
+    const savedStep = localStorage.getItem("step");
+    return savedStep ? parseInt(savedStep, 10) : 1;
+  });
 
   const stepperLabels = [
     "Étape 1: Informations personnelles",
@@ -57,61 +60,81 @@ const Form = () => {
    ************************/
 
   useEffect(() => {
+    console.log('useEffect - step', step);
+
     const savedData = JSON.parse(localStorage.getItem("formData"));
     if (savedData) {
       setFormData(savedData); // Affiche les données récupérées du localStorage
     }
-      setStep(1); // initialise à step 1 quand quit ou refresh
-  }, []);
+  },[step]);
 
   /************************
    *      HANDLERS
    ***********************/
 
-  //_______________Gestion des changements dans les champs de saisie
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => {
-      if (name === "isFrench" && value === "true") {
-        return {
-          ...prevData,
-          [name]: value,
-          residentPermit: "", // si isFrench = true : réinitialise residentPermis à vide
-        };
-      } else {
-        return {
-          ...prevData,
-          [name]: value, // sinon : MAJ la valeur du champs
-        };
-      }
-    });
-    // console.log("handleChange : ", { [name]: value });
-  };
-  
-  //_______________Gestion du passage à l'étape suivante
-  const handleNext = (newStep) => {
-    localStorage.setItem("formData", JSON.stringify(formData)); // Affiche les données sauvegardées dans le localStorage
-    // console.log("handleNext - données stockées : ", formData);
+  //____ handleNext ____ Passage à l'étape suivante
 
-    if (newStep > step && !validate()) {
-      // si validation échouée : rester à l'étape en cours
+  const handleNext = () => {
+    console.log("handlenext demarre a ", step);
+
+    // Affiche les données sauvegardées dans le localStorage
+    localStorage.setItem("formData", JSON.stringify(formData)); 
+
+    // si validation échouée : rester à l'étape en cours
+    if (!validate()) {  
       console.log("handleNext - echec validation - reste à l'etape :", step);
       return;
     }
 
-    setStep(newStep); // Indique la nouvelle étape
-    console.log("handleNext - Passe à l'étape", newStep);
+    // MAJ de la valeur du step
+    setStep(step => step + 1); 
+    //Sauvegarde du step
+    localStorage.setItem("step", step + 1 );
+
+    console.log("handleNext - Passe à l'étape", step + 1);
+
   };
 
-  //_______________Gestion du passage à l'étape précédente
+
+
+  //____ handlePrev ____ Retour à l'étape précédente
+
   const handlePrev = () => {
-    const newStep = step - 1;
-    // localStorage.setItem("step", newStep);
-    setStep(newStep);
-    console.log("handlePrev retour step", newStep);
+    setStep(step - 1);
+    localStorage.setItem("step", step - 1);
+    console.log("handlePrev retour step", step - 1);
   };
 
-  //_______________Gestion de soumissions du formulaire
+
+
+  //____ handleChange ____ Gestion saisies dans inputs
+
+  //TODO remove specific rules from handlechange
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prevData) => {
+      // si isFrench = true : réinitialise residentPermis à vide
+      if (name === "isFrench" && value === "true") {
+        return {
+          ...prevData,
+          [name]: value,
+          residentPermit: "", 
+        };
+        // sinon : MAJ la valeur du champs
+      } else {
+        return {
+          ...prevData,
+          [name]: value, 
+        };
+      }
+    });
+  };
+
+
+  //____ handleSubmit ____ Validation du formulaire
+
   const handleSubmit = () => {
     localStorage.setItem("formData", JSON.stringify(formData)); // sauvegarder les datas avant de les récupérer
 
@@ -163,9 +186,9 @@ const Form = () => {
           formData.credit === "true" ? "Oui" : "Non"}
       `;
       // Affichage de l'alerte
-      // alert(
-      //   `Votre formulaire a bien été soumis avec les informations suivantes :\n${alertMessage}`
-      // );
+      alert(
+        `Votre formulaire a bien été soumis avec les informations suivantes :\n${alertMessage}`
+      );
     }
   };
 
@@ -363,7 +386,7 @@ const Form = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => handleNext(2)}
+              onClick={handleNext}
               disabled={
                 !formData.age ||
                 !formData.existingLicense ||
@@ -380,7 +403,7 @@ const Form = () => {
          */}
 
         {step === 2 && (
-          <>
+          <> 
             <FormControl 
               fullWidth margin="normal"
               error={!!errors.isFrench}
@@ -460,9 +483,7 @@ const Form = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {
-                handleNext(3);
-              }}
+              onClick={handleNext}
               disabled={
                 (formData.isFrench === "false" && !formData.residentPermit) ||
                 !formData.isFrench
@@ -593,9 +614,7 @@ const Form = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {
-                handleNext(4);
-              }}
+              onClick={() => handleNext(2)}
               disabled={
                 !formData.jobStatus ||
                 (formData.jobStatus === "étudiant.e" && !formData.apprentice) ||
@@ -690,9 +709,7 @@ const Form = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {
-                handleNext(5);
-              }}
+              onClick={handleNext}
             >
               Suivant
             </Button>
@@ -788,9 +805,7 @@ const Form = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => {
-                handleNext(6);
-              }}
+              onClick={handleNext}
             >Suivant
             </Button>
           </>
@@ -884,7 +899,7 @@ const Form = () => {
               onClick={handleSubmit}
               disabled={!formData.cpf || !formData.credit}
             >
-              Soumettre
+              Valider
             </Button>
           </>
         )}
