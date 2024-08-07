@@ -163,9 +163,9 @@ const Form = () => {
           formData.credit === "true" ? "Oui" : "Non"}
       `;
       // Affichage de l'alerte
-      alert(
-        `Votre formulaire a bien été soumis avec les informations suivantes :\n${alertMessage}`
-      );
+      // alert(
+      //   `Votre formulaire a bien été soumis avec les informations suivantes :\n${alertMessage}`
+      // );
     }
   };
 
@@ -898,5 +898,6 @@ export default Form;
 
 
 //TODO: message erreur dynamique 
+//TODO: découper le code 
 //TODO: page récap avec option restart 
-//TODO: 404 
+//TODO: injection html dynamique metadata
