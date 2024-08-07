@@ -1,12 +1,10 @@
 import './App.css';
-import Form from './components/Form';
+import RouterConfig from './config/Router';
 
 function App() {
   return (
     <div className="App">
-
-    <Form />
-
+      <RouterConfig />
     </div>
   );
 }
