@@ -12,15 +12,15 @@ const FormStepper = ({ step }) => {
   ];
 
   return (
-      <Box sx={{ width: "100%" }}>
-        <Stepper activeStep={step - 1} alternativeLabel>
-          {stepperLabels.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-      </Box>
+    <Box sx={{ width: "100%" }}>
+      <Stepper activeStep={step - 1} alternativeLabel>
+        {stepperLabels.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </Box>
   );
 };
 

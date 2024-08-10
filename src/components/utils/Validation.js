@@ -30,6 +30,7 @@ const Validation = ({step, formData, setErrors}) => {
     if (step === 2) {
       if (!formData.isFrench) {
         tempErrors.isF2ench = "Ce champ est requis.";
+        formData.residentPermit=null;
         isValid = false;
       }
       if (formData.isFrench === "false" && !formData.residentPermit) {

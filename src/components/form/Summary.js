@@ -12,7 +12,7 @@ const Summary = ({ formData, onRestart }) => {
       <p>Est de nationalité française : {formData.isFrench === "true" ? "Oui" : "Non"}</p>
       <p>A un permis de séjour valide : {formData.residentPermit === null ? "Non concerné" : formData.residentPermit === "true" ? "Oui" : "Non"}</p>
       <p>Situation professionnelle : {formData.jobStatus}</p>
-      <p>Contrat d'apprentissage : {formData.apprentice === null ? "non concerné" : formData.apprentice === "true" ? "Oui" : "Non"}</p>
+      <p>Contrat d'apprentissage : {formData.apprentice === null ? "Non concerné" : formData.apprentice === "true" ? "Oui" : "Non"}</p>
       <p>Inscrit à France Travail 6 mois consécutifs : {formData.franceTravail === null ? "Non concerné" : formData.franceTravail === "true" ? "Oui" : "Non"}</p>
       <p>Réserviste Police ou Armée : {formData.reservist === "true" ? "Oui" : "Non"}</p>
       <p>Engagé dans le SNU : {formData.snu === "true" ? "Oui" : "Non"}</p>

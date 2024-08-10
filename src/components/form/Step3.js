@@ -21,18 +21,21 @@ import {
         >
           <FormLabel> Quelle est votre situation professionnelle ? </FormLabel>
 
+
+
           <Select
             name="jobStatus"
             value={formData.jobStatus}
-            onChange={(e) => {
-              const value = e.target.value;
-              setFormData((prevData) => ({
-                ...prevData,
-                jobStatus: value,
-                apprentice: value === "étudiant.e" ? "" : null,
-                franceTravail: value === "sans emploi" ? "" : null,
-              }));
-            }}
+            // onChange={(e) => {
+            //   const value = e.target.value;
+            //   setFormData((prevData) => ({
+            //     ...prevData,
+            //     jobStatus: value,
+            //     apprentice: value === "étudiant.e" ? "" : null,
+            //     franceTravail: value === "sans emploi" ? "" : null,
+            //   }));
+            // }}
+            onChange={handleChange}
             displayEmpty
           >
             <MenuItem value="" disabled>
@@ -47,6 +50,8 @@ import {
             <FormHelperText>{errors.jobStatus}</FormHelperText>
           )}
         </FormControl>
+
+
         
         {formData.jobStatus === "étudiant.e" && (
           <FormControl
