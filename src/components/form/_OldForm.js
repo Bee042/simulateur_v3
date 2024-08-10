@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 const Form = () => {
-    
+      
   /************************
    *   DECLARATION
    *   CONST / ETATS
@@ -60,7 +60,7 @@ const Form = () => {
    ************************/
 
   useEffect(() => {
-    console.log('useEffect - step', step);
+    // console.log('useEffect - step', step);
 
     const savedData = JSON.parse(localStorage.getItem("formData"));
     if (savedData) {
@@ -75,14 +75,14 @@ const Form = () => {
   //____ handleNext ____ Passage à l'étape suivante
 
   const handleNext = () => {
-    console.log("handlenext demarre a ", step);
+    // console.log("handlenext demarre a ", step);
 
     // Affiche les données sauvegardées dans le localStorage
     localStorage.setItem("formData", JSON.stringify(formData)); 
 
     // si validation échouée : rester à l'étape en cours
     if (!validate()) {  
-      console.log("handleNext - echec validation - reste à l'etape :", step);
+      // console.log("handleNext - echec validation - reste à l'etape :", step);
       return;
     }
 
@@ -91,7 +91,7 @@ const Form = () => {
     //Sauvegarde du step
     localStorage.setItem("step", step + 1 );
 
-    console.log("handleNext - Passe à l'étape", step + 1);
+    // console.log("handleNext - Passe à l'étape", step + 1);
 
   };
 
@@ -102,14 +102,13 @@ const Form = () => {
   const handlePrev = () => {
     setStep(step - 1);
     localStorage.setItem("step", step - 1);
-    console.log("handlePrev retour step", step - 1);
+    // console.log("handlePrev retour step", step - 1);
   };
 
 
 
   //____ handleChange ____ Gestion saisies dans inputs
 
-  //TODO remove specific rules from handlechange
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -285,7 +284,7 @@ const Form = () => {
       }
   
     setErrors(tempErrors); // Affiche les erreurs trouvées lors de la validation
-    console.log("Validate - erreurs : ", tempErrors);
+    // console.log("Validate - erreurs : ", tempErrors);
     return isValid;
   };
 
@@ -306,7 +305,6 @@ const Form = () => {
           ))}
         </Stepper>
       </Box>
-
 
       <form>
         {/*
@@ -403,7 +401,7 @@ const Form = () => {
          */}
 
         {step === 2 && (
-          <> 
+        <> 
             <FormControl 
               fullWidth margin="normal"
               error={!!errors.isFrench}
@@ -910,9 +908,3 @@ const Form = () => {
 };
 
 export default Form;
-
-
-//TODO: message erreur dynamique 
-//TODO: découper le code 
-//TODO: page récap avec option restart 
-//TODO: injection html dynamique metadata

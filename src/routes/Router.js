@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Form from '../components/Form';
-import Page404 from '../components/errors/Page404';
+import Form from '../components/form/Form';
+import Page404 from '../components/Page404';
 
 const RouterConfig = () => {
     return(
