@@ -29,6 +29,11 @@ const defaultFormData = {
 
 const Form = () => {
 
+  /************************
+  //*    DECLARATION DES
+  //*    CONST / VAR
+   ************************/
+
   const [formData, setFormData] = useState(() => {
     const savedData = JSON.parse(localStorage.getItem("formData"));
     return savedData || defaultFormData;
@@ -43,8 +48,11 @@ const Form = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+
+
+
   /************************
-   *    USE EFFECT
+  // *    USE EFFECT
    ************************/
 
   useEffect(() => {
@@ -54,23 +62,40 @@ const Form = () => {
     }
   }, [step]);
 
-  /************************
-   *      HANDLERS
-   ***********************/
-  const handleNext = () => {
-    localStorage.setItem("formData", JSON.stringify(formData));
 
-    if (!Validation({ step, formData, setErrors })) {
-      return;
-    }
-    setStep((step) => step + 1);
-    localStorage.setItem("step", step + 1);
-  };
+
+
+  /************************
+  // *    HANDLERS
+   ***********************/
+
+//*_________ HANDLENEXT
+// Valide l'étape après vérif d'erreurs + enregistre datas + steps dans localstorage
+
+const handleNext = () => {
+  if (Validation({ step, formData, setErrors })) {
+
+      setStep((prevStep) => {
+          const newStep = prevStep + 1;
+
+          localStorage.setItem("step", newStep);
+          localStorage.setItem("formData", JSON.stringify(formData));
+          
+          return newStep;
+      });
+  }
+};
+
+//*_________ HANDLEPREV
+// Retourne à l'étape précédente, met à jour le step dans localstorage
 
   const handlePrev = () => {
     setStep(step - 1);
     localStorage.setItem("step", step - 1);
   };
+
+//*_________ HANDLECHANGE
+// Mise à jour des saisies dans les champs
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -92,15 +117,20 @@ const Form = () => {
           franceTravail: value === "sans emploi" ? prevData.franceTravail : null,
         };
       }
-
       return updatedData
     });
   };
+
+//*_________ HANDLESUBMIT
+// Valide le formulaire + affiche le résumé des données saisies par l'utilisateur
 
   const handleSubmit = () => {
     localStorage.setItem("formData", JSON.stringify(formData));
     setIsSubmitted(true);
   };
+
+//*_________ HANDLERESTART
+// Retour step 1 avec champs et localstorage cleared
 
   const handleRestart = () => {
     setFormData(defaultFormData);
@@ -109,6 +139,9 @@ const Form = () => {
     localStorage.removeItem("step");
     setIsSubmitted(false);
   };
+
+
+
 
   const steps = getSteps({
     formData,
@@ -120,8 +153,11 @@ const Form = () => {
     handleSubmit,
   });
 
+
+
+
   /************************
-   *     RETURN
+  //*     RETURN
    ***********************/
 
   return (
