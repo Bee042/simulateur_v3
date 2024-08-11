@@ -1,9 +1,9 @@
-  //Validation des étapes / gestion des erreurs
 //TODO: message erreur dynamique
+//TODO : passer isValid à false par défaut
+
 
 const Validation = ({step, formData, setErrors}) => {
     let tempErrors = {}; // stockage des erreurs de validation
-//TODO : passer isValid à false par défaut
     let isValid = true;
 
     if (step === 1) {

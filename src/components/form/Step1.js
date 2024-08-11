@@ -1,7 +1,7 @@
 import React from "react";
 
 import {
-  Button,
+  // Button,
   FormControl,
   FormControlLabel,
   FormHelperText,
@@ -11,9 +11,9 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { NextButton } from "../elements/FormButtons";
 
-const Step1 = ({errors, formData, handleChange, handleNext}) => {
-
+const Step1 = ({ errors, formData, handleChange, handleNext }) => {
   return (
     <>
       <FormControl fullWidth margin="normal" error={!!errors.age}>
@@ -54,9 +54,7 @@ const Step1 = ({errors, formData, handleChange, handleNext}) => {
       </FormControl>
 
       <FormControl fullWidth margin="normal" error={!!errors.desiredLicense}>
-        <FormLabel>
-          Quel permis de conduire souhaitez-vous financer ?
-        </FormLabel>
+        <FormLabel>Quel permis de conduire souhaitez-vous financer ?</FormLabel>
 
         <Select
           name="desiredLicense"
@@ -76,16 +74,12 @@ const Step1 = ({errors, formData, handleChange, handleNext}) => {
         )}
       </FormControl>
 
-      <Button
-        variant="contained"
-        color="primary"
+      <NextButton
         onClick={handleNext}
         disabled={
           !formData.age || !formData.existingLicense || !formData.desiredLicense
         }
-      >
-        Suivant
-      </Button>
+      />
     </>
   );
 };

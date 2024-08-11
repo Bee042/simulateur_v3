@@ -1,8 +1,8 @@
-import { Button } from "@mui/material";
 import React from "react";
+import { RestartButton } from "../elements/FormButtons";
 
 
-const Summary = ({ formData, onRestart }) => {
+const Summary = ({ formData, onRestart, step, steps }) => {
   return (
       <div>
       <h2>Résumé de votre formulaire</h2>
@@ -21,14 +21,10 @@ const Summary = ({ formData, onRestart }) => {
       <p>Compte Personnel de Formation : {formData.cpf === "true" ? "Oui" : "Non"}</p>
       <p>Accès au crédit bancaire : {formData.credit === "true" ? "Oui" : "Non"}</p>
     
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={onRestart} // Appeler la fonction pour réinitialiser
-      >
-        Recommencer
-      </Button>
-
+      <RestartButton 
+        onClick={onRestart} 
+        disabled={steps ? step === steps.length : false} 
+      />
     </div>
   );
 };

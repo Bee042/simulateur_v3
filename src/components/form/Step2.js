@@ -1,31 +1,17 @@
 import {
-  Button,
   FormControl,
   FormControlLabel,
   FormHelperText,
   FormLabel,
   Radio,
 } from "@mui/material";
-
-//TODO : simplifier les boutons et le style
-
-const Step2 = ({
-  errors,
-  formData,
-  setFormData,
-  handleChange,
-  handlePrev,
-  handleNext,
-}) => {
+import { NextButton, PrevButton } from "../elements/FormButtons";
 
 
+const Step2 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
   return (
     <>
-      <FormControl
-        fullWidth margin="normal"
-        error={!!errors.isFrench}
-      >
-
+      <FormControl fullWidth margin="normal" error={!!errors.isFrench}>
         <FormLabel>Etes vous de nationalité française ?</FormLabel>
 
         <div>
@@ -56,14 +42,12 @@ const Step2 = ({
         {errors.isFrench && <FormHelperText>{errors.isFrench}</FormHelperText>}
       </FormControl>
 
-
-
-
-
       {formData.isFrench === "false" && (
         <FormControl fullWidth margin="normal" error={!!errors.residentPermit}>
-
-          <FormLabel> Disposez vous d'un permis de séjour en cours de validité ? </FormLabel>
+          <FormLabel>
+            {" "}
+            Disposez vous d'un permis de séjour en cours de validité ?{" "}
+          </FormLabel>
 
           <div>
             <FormControlLabel
@@ -97,26 +81,15 @@ const Step2 = ({
         </FormControl>
       )}
 
+      <PrevButton onClick={handlePrev} />
 
-
-      <Button variant="contained" color="primary" onClick={handlePrev}>
-        Précédent
-      </Button>
-
-
-      <Button
-        variant="contained"
-        color="primary"
+      <NextButton
         onClick={handleNext}
         disabled={
           (formData.isFrench === "false" && !formData.residentPermit) ||
           !formData.isFrench
         }
-      >
-        Suivant
-      </Button>
-
-
+      />
     </>
   );
 };

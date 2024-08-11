@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import FormStepper from "../elements/FormStepper";
 import getSteps from "./StepHandler";
 import Validation from "../utils/Validation";
@@ -57,7 +57,6 @@ const Form = () => {
   /************************
    *      HANDLERS
    ***********************/
-  //FIXME : la validation ira dans handleChange
   const handleNext = () => {
     localStorage.setItem("formData", JSON.stringify(formData));
 
@@ -77,7 +76,7 @@ const Form = () => {
     const { name, value } = e.target;
 
     setFormData((prevData) => {
-      let updatedData = {...prevData,[name]: value}
+      let updatedData = { ...prevData, [name]: value }
 
       if (name === "isFrench") {
         updatedData = {
@@ -85,15 +84,15 @@ const Form = () => {
           residentPermit: value === "true" ? null : prevData.residentPermit,
         };
       }
-    
+
       if (name === "jobStatus") {
         updatedData = {
           ...updatedData,
           apprentice: value === "étudiant.e" ? prevData.apprentice : null,
-          franceTravail: value === "sans emploi" ? prevData.franceTravail: null,
+          franceTravail: value === "sans emploi" ? prevData.franceTravail : null,
         };
       }
-      
+
       return updatedData
     });
   };
@@ -139,16 +138,6 @@ const Form = () => {
           <form>
             {steps[step - 1]}
 
-            {step === steps.length && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}
-                disabled={!formData.cpf || !formData.credit}
-              >
-                Valider
-              </Button>
-            )}
           </form>
         </>
       )}
