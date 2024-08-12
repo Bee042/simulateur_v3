@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-//TODO: injection html dynamique metadata
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

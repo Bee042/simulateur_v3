@@ -1,95 +1,68 @@
-//TODO: message erreur dynamique
-//TODO : passer isValid à false par défaut
+// Fonction de validation pour les champs requis
+const requiredValidation = (value) => !value ? "Ce champ est requis." : null;
 
+// Fonction de validation spécifique pour l'âge
+const validateAge = (value) =>
+  !value || isNaN(value) || value < 15 || value > 99 || value % 1 !== 0
+    ? "L'âge doit être un nombre entier entre 15 et 99."
+    : null;
 
-const Validation = ({step, formData, setErrors}) => {
-    let tempErrors = {}; // stockage des erreurs de validation
-    let isValid = true;
+// Règles de validation par étape
+const validationRules = {
+  1: {
+    age: validateAge,
+    existingLicense: requiredValidation,
+    desiredLicense: requiredValidation,
+  },
+  2: {
+    isFrench: requiredValidation,
+    residentPermit: (value, formData) =>
+      formData.isFrench === "false" ? requiredValidation(value) : null,
+  },
+  3: {
+    jobStatus: requiredValidation,
+    apprentice: (value, formData) =>
+      formData.jobStatus === "student" ? requiredValidation(value) : null,
+    franceTravail: (value, formData) =>
+      formData.jobStatus === "unemployed" ? requiredValidation(value) : null,
+  },
+  4: {
+    reservist: requiredValidation,
+    snu: requiredValidation,
+  },
+  5: {
+    integrationIssues: requiredValidation,
+    handicap: requiredValidation,
+  },
+  6: {
+    cpf: (value) => value ? "Ce champ est requis." : null,
+    credit: requiredValidation,
+  },
+};
 
-    if (step === 1) {
-      if (
-        !formData.age ||
-        isNaN(formData.age) ||
-        formData.age < 15 ||
-        formData.age > 99 ||
-        formData.age % 1 !== 0
-      ) {
-        tempErrors.age = "L'âge doit être un nombre entier entre 15 et 99.";
-        isValid = false;
-      }
-      if (!formData.existingLicense) {
-        tempErrors.existingLicense = "Ce champ est requis.";
-        isValid = false;
-      }
-      if (!formData.desiredLicense) {
-        tempErrors.desiredLicense = "Ce champ est requis.";
-        isValid = false;
-      }
+// Fonction principale de validation
+const Validation = ({ step, formData, setErrors }) => {
+  const rules = validationRules[step] || {};
+  let tempErrors = {};
+  let isValid = true;
+
+  Object.entries(rules).forEach(([field, validate]) => {
+    const value = formData[field];
+    const errorMessage = validate(value, formData);
+
+    if (errorMessage) {
+      tempErrors[field] = errorMessage;
+      isValid = false;
     }
+  });
 
-    if (step === 2) {
-      if (!formData.isFrench) {
-        tempErrors.isF2ench = "Ce champ est requis.";
-        formData.residentPermit=null;
-        isValid = false;
-      }
-      if (formData.isFrench === "false" && !formData.residentPermit) {
-        tempErrors.residentPermit = "Ce champ est requis.";
-        isValid = false;
-      }
-    }
+  // Gestion du cas spécial pour l'étape 2 : effacer residentPermit si isFrench est false
+  if (step === 2 && !formData.isFrench) {
+    formData.residentPermit = null;
+  }
 
-    if (step === 3) {
-      if (!formData.jobStatus) {
-        tempErrors.jobStatus = "Ce champ est requis.";
-        isValid = false;
-      }
-      if (formData.jobStatus === "student" && !formData.apprentice) {
-        tempErrors.apprentice = "Ce champ est requis.";
-        isValid = false;
-      }
-      if (formData.jobStatus === "unemployed" && !formData.franceTravail) {
-        tempErrors.franceTravail = "Ce champ est requis.";
-        isValid = false;
-      }
-    }
+  setErrors(tempErrors);
+  return isValid;
+};
 
-    if (step === 4) {
-      if (!formData.reservist) {
-        tempErrors.reservist = "Ce champ est requis.";
-        isValid = false;
-      }
-      if (!formData.snu) {
-        tempErrors.snu = "Ce champ est requis.";
-        isValid = false;
-      }
-    }
-
-    if (step === 5) {
-      if (!formData.integrationIssues) {
-        tempErrors.integrationIssues = "Ce champ est requis.";
-        isValid = false;
-      }
-      if (!formData.handicap) {
-        tempErrors.handicap = "Ce champ est requis.";
-        isValid = false;
-      }
-    }
-
-    if (step === 6) {
-      if (formData.cpf) {
-        tempErrors.cpf = "Ce champ est requis.";
-        isValid = false;
-      }
-      if (!formData.credit) {
-        tempErrors.credit = "Ce champ est requis.";
-        isValid = false;
-      }
-    }
-
-    setErrors(tempErrors); // Affiche les erreurs trouvées lors de la validation
-    // console.log("Validate - erreurs : ", tempErrors);
-    return isValid;
-  };
-
-  export default Validation;
+export default Validation;
