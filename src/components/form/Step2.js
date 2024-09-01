@@ -4,15 +4,31 @@ import {
   FormHelperText,
   FormLabel,
   Radio,
+  TextField,
 } from "@mui/material";
 import { NextButton, PrevButton } from "../elements/FormButtons";
-
 
 const Step2 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
   return (
     <>
-      <FormControl fullWidth margin="normal" error={!!errors.isFrench}>
-        <FormLabel>Etes vous de nationalité française ?</FormLabel>
+      <FormControl className="input-wrapper" error={!!errors.age}>
+        <TextField
+        className="input-field"
+          label="Saisissez votre âge"
+          type="text"
+          name="age"
+          value={formData.age}
+          placeholder="Entrez votre âge"
+          onChange={handleChange}
+          inputProps={{ min: 15, max: 99, step: 1 }}
+        />
+        {errors.age && <FormHelperText>{errors.age}</FormHelperText>}
+      </FormControl>
+
+      <FormControl className="input-wrapper" error={!!errors.isFrench}>
+        <FormLabel className="input-label">
+          Etes vous de nationalité française ?
+        </FormLabel>
 
         <div>
           <FormControlLabel
@@ -43,8 +59,8 @@ const Step2 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
       </FormControl>
 
       {formData.isFrench === "false" && (
-        <FormControl fullWidth margin="normal" error={!!errors.residentPermit}>
-          <FormLabel>
+        <FormControl className="input-wrapper" error={!!errors.residentPermit}>
+          <FormLabel className="input-label">
             {" "}
             Disposez vous d'un permis de séjour en cours de validité ?{" "}
           </FormLabel>
@@ -81,15 +97,18 @@ const Step2 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
         </FormControl>
       )}
 
-      <PrevButton onClick={handlePrev} />
+      <div>
+        <PrevButton onClick={handlePrev} />
 
-      <NextButton
-        onClick={handleNext}
-        disabled={
-          (formData.isFrench === "false" && !formData.residentPermit) ||
-          !formData.isFrench
-        }
-      />
+        <NextButton
+          onClick={handleNext}
+          disabled={
+            (formData.isFrench === "false" && !formData.residentPermit) ||
+            !formData.isFrench ||
+            !formData.age
+          }
+        />
+      </div>
     </>
   );
 };

@@ -1,25 +1,40 @@
 import React from "react";
 import { Box, Step, StepLabel, Stepper } from "@mui/material";
 
-const FormStepper = ({ step }) => {
+// import "../../Display.css";
+
+const FormStepper = ({ step, index }) => {
   const stepperLabels = [
-    "Étape 1: Informations personnelles",
-    "Étape 2: Situation Administrative",
-    "Étape 3: Situation professionnelle",
-    "Étape 4: Situation militaire",
-    "Étape 5: Situation particulière",
-    "Étape 6: Situation financière",
+    "Projet de formation au permis",
+    "Situation Administrative",
+    "Situation professionnelle",
+    "Situation militaire",
+    "Situation particulière",
+    "Situation financière",
   ];
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Stepper activeStep={step - 1} alternativeLabel>
+    <Box
+      className="stepper-box"
+    >    
+
+    {/* DESKTOP STEPPER */}
+      <Stepper
+        activeStep={step - 1}
+        alternativeLabel
+        className="custom-step-icon stepper-desktop"
+      >
         {stepperLabels.map((label) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel
+              className = {index < step - 1 ? "" : "custom-disabled-step-label"}
+            >
+              {label}
+            </StepLabel>{" "}
           </Step>
         ))}
       </Stepper>
+
     </Box>
   );
 };

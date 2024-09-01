@@ -1,7 +1,8 @@
-import './App.css';
+// import './App.css';
 import useDocMeta from './components/utils/useDocMeta';
 import useDocTitle from './components/utils/useDocTitle';
 import RouterConfig from './routes/Router';
+import { StyledEngineProvider } from '@mui/material';
 
 function App() {
 
@@ -11,7 +12,9 @@ useDocTitle("Simulateur d'aides au permis de conduire");
 
   return (
     <div className="App">
-      <RouterConfig />
+      <StyledEngineProvider injectFirst>
+        <RouterConfig />
+      </StyledEngineProvider>
     </div>
   );
 }

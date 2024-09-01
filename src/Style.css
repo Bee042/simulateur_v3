@@ -1,0 +1,323 @@
+.App {
+    font-size: 1rem;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.8);
+  }
+   
+/* Container de l'app */
+.display-container {
+    /* background-color: #c52e2e; */
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+/*****************************/
+/**         BANNER           */
+/*****************************/
+
+.title-banner {
+    background-color: #1565c0;
+    width:100%;
+    margin: 20px;
+}
+
+.title-banner h1 {
+    font-size: 1.5em;
+    color: white;
+    font-weight: 600;
+    padding: 10px;
+}
+
+
+/*****************************/
+/**           FORM           */
+/*****************************/
+
+form {
+    /* background-color: #40a943; */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 12px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+    border-radius: 5px;
+    padding: 24px 0;
+} 
+
+
+
+/*****************************/
+/**         INPUTS           */
+/*****************************/
+
+.input-wrapper {
+    margin: 0.7rem 0;
+}
+
+.input-label {
+    padding: 4px 6px;
+    color: rgba(0, 0, 0, 0.75);
+}
+.input-field {
+    width: 90%;
+    margin: 0 auto;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+
+/*****************************/
+/**         BUTTONS          */
+/*****************************/
+
+.form-button {
+    margin: 1.1rem 0.5rem;
+    width: 6.5rem;
+}
+
+.restart-button {
+    margin: 1.1rem 0.5rem;
+    width: 8rem;
+}
+
+
+/*****************************/
+/**        STEPPER           */
+/*****************************/
+
+.stepper-box {
+    /* background-color: #7a9aae; */
+    padding: 1.5rem;
+}
+
+/* AFFICHAGE STEPPER MOBILE OU DESKTOP */
+.stepper-mobile {
+    display:none;
+    margin-top: 10px;
+}
+
+/* DESKTOP STEP DOTS COLORS */
+.custom-step-icon .MuiStepIcon-root.Mui-active{
+    color:#1976d2;
+} 
+.custom-step-icon .MuiStepIcon-root.Mui-completed {
+    color: #40a943;
+}
+.custom-step-icon .MuiStepIcon-root {
+    color: #c4c4c4;
+}
+/* label step non complétés */
+.custom-disabled-step-label .Mui-disabled {
+    color: #c4c4c4;
+}
+
+
+
+
+/*****************************/
+/**       ACCORDION          */
+/*****************************/
+
+/* sous titre info */
+h4 {
+    font-weight: 500;
+    color: #2e7d32;
+    font-size: 1.5rem;
+  }
+
+/* En-tete accordeon */
+.MuiAccordion-root {
+    margin: 20px 0;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.MuiAccordion-root:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 6px 0px;
+}
+
+/* Supprime le hover sur la card quand déployée */
+.MuiAccordion-root.Mui-expanded:hover  {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.MuiAccordion-root::before {
+    background-color: transparent;
+}
+
+.MuiAccordionSummary-root {
+    /* background-color: red; */
+    align-items: center;
+    height: 5rem;
+}
+
+.MuiAccordionSummary-root.Mui-expanded {
+    min-height: 3rem;
+    max-height: 3rem;
+    padding-top: 16px;
+}
+
+
+.MuiAccordionSummary-content {
+    align-items: center;
+    justify-content:space-between;
+    margin: 0 12px;
+}
+
+.MuiAccordionSummary-content.Mui-expanded {
+    margin:  0 12px 0 0;
+}
+
+/* Afficher le titre de l'accordéon en vert et augmenter la taille de la police lorsque l'accordéon est ouvert */
+.MuiAccordion-root.Mui-expanded .card-title {
+    color: #2e7d32;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.0075em;
+    min-height: fit-content;
+}
+
+.accordion-details {
+    text-align: left;
+    padding: 6px 16px;
+}
+
+/* Titres cards */
+.card-title {
+    text-align: left;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+/* texte cards */
+.card-content-text {
+    white-space: pre-wrap;
+    color: rgba(0, 0, 0, 0.65); 
+}
+
+/* Sous titres cards */
+.help-undertitle {
+    color: #1565c0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-block-start: 12px;
+    margin-block-end: 6px;
+
+}
+
+.help-text{
+    margin-block-start: 4px;
+    margin-block-end: 16px;
+    font-size: 1rem;
+}
+
+/* Listes description aides */
+.help-text {
+    list-style-type: none;
+    margin-block-start: 4px;
+    margin-block-end: 4px;
+    padding: 0 6px;
+}
+
+/* Chip */
+.amount-chip {
+    height: 2.5rem;
+    font-size : 1.1rem;
+}
+
+
+
+/************************/
+/**     RESPONSIVE      */
+/************************/
+
+/* Si écran < 900px */
+@media screen and (max-width: 900px) {
+    .display-container {
+        padding: 4px;
+    }
+    /* Affichage stepper mobile */
+    .stepper-box {
+        display: none;
+    }
+    .stepper-desktop {
+        display: none;
+    }
+    .stepper-mobile {
+        display: block;
+    }
+
+    /* Header */
+    .title-banner h1 {
+        font-size: 1.3rem;
+        margin: 12px;
+        padding: 0;
+    }
+
+    /* Phrase d'info */
+    h4 {
+        margin: 1.1rem 0.8rem;
+        font-size: 1.1rem;
+    }
+
+    /* Taille des inputs */
+    .input-wrapper {
+        margin: 0.6rem 0;
+    }
+    .input-label {
+        max-width: 80%;
+        margin: 6px auto;
+        padding: 0 6px;
+        font-size: 0.9rem;
+        line-height: normal;
+    }
+
+    /* Chip */
+    .amount-chip {
+        height: 2rem;
+        font-size : 0.9rem;
+    }
+
+    /* container du titre de l'aide */
+    .MuiAccordionSummary-root {
+        padding: 0 6px;
+        height: 4rem;
+    }
+    .MuiAccordionSummary-content {
+        align-items: center;
+        justify-content:space-between;
+        margin: 0 12px;
+    }
+    
+    /* titre de l'aide */
+    .card-title {
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+    /* titre de l'aide quand accordeon deployé */
+    .MuiAccordion-root.Mui-expanded .card-title { 
+        font-size: 1rem;
+    }
+    
+    /* Container du détail de l'aide (partie déroulante) */
+    .accordion-details {
+        padding: 0 6px;
+        margin: 0 6px;
+    }
+    .help-text {
+        font-size: 0.9rem;
+        margin-block-start: 0px;
+        margin-block-end: 10px;
+    }
+    /* Sous titres cards */
+    .help-undertitle {
+        font-size: 0.9rem;
+    }    
+    /* texte de l'aide */
+    .card-content-text {
+        text-indent:-6px;
+    }
+}

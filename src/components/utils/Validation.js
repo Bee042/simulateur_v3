@@ -4,17 +4,20 @@ const requiredValidation = (value) => !value ? "Ce champ est requis." : null;
 // Fonction de validation spécifique pour l'âge
 const validateAge = (value) =>
   !value || isNaN(value) || value < 15 || value > 99 || value % 1 !== 0
-    ? "L'âge doit être un nombre entier entre 15 et 99."
+    ? "L'âge doit être compris entre 15 et 99 ans"
     : null;
 
-// Règles de validation par étape
+// Règles de validation par step
 const validationRules = {
   1: {
-    age: validateAge,
-    existingLicense: requiredValidation,
     desiredLicense: requiredValidation,
+    validLicenseAorB: requiredValidation,
+    alreadyTraining: requiredValidation,
+    necessaryForProfessionalProject: requiredValidation,
+    initalTraining: requiredValidation,
   },
   2: {
+    age: validateAge,
     isFrench: requiredValidation,
     residentPermit: (value, formData) =>
       formData.isFrench === "false" ? requiredValidation(value) : null,
@@ -23,12 +26,13 @@ const validationRules = {
     jobStatus: requiredValidation,
     apprentice: (value, formData) =>
       formData.jobStatus === "student" ? requiredValidation(value) : null,
-    franceTravail: (value, formData) =>
+    registered6MonthsFranceTravail: (value, formData) =>
       formData.jobStatus === "unemployed" ? requiredValidation(value) : null,
   },
   4: {
-    reservist: requiredValidation,
     snu: requiredValidation,
+    reservist: (value, formData) =>
+      formData.reservist === "reservist" ? requiredValidation(value) : null,
   },
   5: {
     integrationIssues: requiredValidation,
@@ -36,7 +40,9 @@ const validationRules = {
   },
   6: {
     cpf: (value) => value ? "Ce champ est requis." : null,
-    credit: requiredValidation,
+    lowIncomes: requiredValidation,
+    creditAccess: requiredValidation,
+    socialIncome:requiredValidation,
   },
 };
 

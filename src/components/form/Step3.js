@@ -11,7 +11,7 @@ import { NextButton, PrevButton } from "../elements/FormButtons";
 
 const Step3 = ({
   errors,
-  setFormData,
+  // setFormData,
   formData,
   handleChange,
   handleNext,
@@ -21,10 +21,17 @@ const Step3 = ({
 
   return (
     <>
-      <FormControl fullWidth margin="normal" error={!!errors.jobStatus}>
-        <FormLabel> Quelle est votre situation professionnelle ? </FormLabel>
+      <FormControl 
+        className="input-wrapper" 
+        error={!!errors.jobStatus}
+      >
+
+        <FormLabel className="input-label">
+          Quelle est votre situation professionnelle ?
+        </FormLabel>
 
         <Select
+          className="input-field"
           name="jobStatus"
           value={formData.jobStatus}
           onChange={handleChange}
@@ -43,86 +50,92 @@ const Step3 = ({
         )}
       </FormControl>
 
-      {formData.jobStatus === "étudiant.e" && (
-        <FormControl fullWidth margin="normal" error={!!errors.apprentice}>
-          <FormLabel>Êtes-vous en contrat d'apprentissage ?</FormLabel>
 
+      {/* SI ETUDIANT */}
+      {formData.jobStatus === "étudiant.e" && (
+        <FormControl
+          className="input-wrapper"
+          fullWidth
+          error={!!errors.apprentice}
+        >
+          <FormLabel className="input-label">
+            Êtes-vous actuellement en contrat d'apprentissage ?
+          </FormLabel>
           <div>
-            <FormControlLabel
-              control={
-                <Radio
-                  name="apprentice"
-                  checked={formData.apprentice === "true"}
-                  onChange={handleChange}
-                  value="true"
-                />
-              }
-              label="Oui"
-            />
-            <FormControlLabel
-              control={
-                <Radio
-                  name="apprentice"
-                  checked={formData.apprentice === "false"}
-                  onChange={handleChange}
-                  value="false"
-                />
-              }
-              label="Non"
-            />
+            {["true", "false"].map((value) => (
+              <FormControlLabel
+                key={value}
+                control={
+                  <Radio
+                    className="radio-step3"
+                    name="apprentice"
+                    checked={formData.apprentice === value}
+                    onChange={handleChange}
+                    value={value}
+                  />
+                }
+                label={value === "true" ? "Oui" : "Non"}
+              />
+            ))}
           </div>
           {errors.apprentice && (
             <FormHelperText>{errors.apprentice}</FormHelperText>
           )}
         </FormControl>
       )}
-      {formData.jobStatus === "sans emploi" && (
-        <FormControl fullWidth margin="normal" error={!!errors.franceTravail}>
-          <FormLabel>
-            {" "}
-            Êtes-vous inscrit à France Travail depuis 6 mois consécutifs ?{" "}
-          </FormLabel>
 
+
+      {/* SI SANS EMPLOI */}
+      {formData.jobStatus === "sans emploi" && (
+        <FormControl
+          className="input-wrapper"
+          fullWidth
+          error={!!errors.registeredToFranceTravailFor6months}
+        >
+          <FormLabel className="input-label">
+            Êtes-vous inscrit à France Travail depuis 6 mois consécutifs ?
+          </FormLabel>
           <div>
-            <FormControlLabel
-              control={
-                <Radio
-                  name="franceTravail"
-                  checked={formData.franceTravail === "true"}
-                  onChange={handleChange}
-                  value="true"
-                />
-              }
-              label="Oui"
-            />
-            <FormControlLabel
-              control={
-                <Radio
-                  name="franceTravail"
-                  checked={formData.franceTravail === "false"}
-                  onChange={handleChange}
-                  value="false"
-                />
-              }
-              label="Non"
-            />
+            {["true", "false"].map((value) => (
+              <FormControlLabel
+                key={value}
+                control={
+                  <Radio
+                    className="radio-step3"
+                    name="registeredToFranceTravailFor6months"
+                    checked={
+                      formData.registeredToFranceTravailFor6months === value
+                    }
+                    onChange={handleChange}
+                    value={value}
+                  />
+                }
+                label={value === "true" ? "Oui" : "Non"}
+              />
+            ))}
           </div>
-          {errors.franceTravail && (
-            <FormHelperText>{errors.franceTravail}</FormHelperText>
+          {errors.registeredToFranceTravailFor6months && (
+            <FormHelperText>
+              {errors.registeredToFranceTravailFor6months}
+            </FormHelperText>
           )}
         </FormControl>
       )}
 
-      <PrevButton onClick={handlePrev} />
 
-      <NextButton
-        onClick={handleNext}
-        disabled={
-          !formData.jobStatus ||
-          (formData.jobStatus === "étudiant.e" && !formData.apprentice) ||
-          (formData.jobStatus === "sans emploi" && !formData.franceTravail)
-        }
-      />
+      <div>
+        <PrevButton onClick={handlePrev} />
+
+        <NextButton
+          onClick={handleNext}
+          disabled={
+            !formData.jobStatus ||
+            (formData.jobStatus === "étudiant.e" && !formData.apprentice) ||
+            (formData.jobStatus === "sans emploi" &&
+              !formData.registeredToFranceTravailFor6months)
+          }
+        />
+      </div>
     </>
   );
 };

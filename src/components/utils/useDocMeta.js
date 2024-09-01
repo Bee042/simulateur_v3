@@ -15,7 +15,7 @@ const useDocMeta = (description) => {
             // Enfin on met notre description dans le content de la balise
             metaDescription.content = description;
         };
-    });
+    },[description]);
 };
 
 export default useDocMeta;

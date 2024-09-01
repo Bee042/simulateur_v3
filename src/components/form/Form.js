@@ -4,6 +4,10 @@ import FormStepper from "../elements/FormStepper";
 import getSteps from "./StepHandler";
 import Validation from "../utils/Validation";
 import Summary from "./Summary";
+import { validateHelps } from "../utils/ValidateHelps";
+import StepperMobile from "../elements/MobileStepper";
+import "../../Style.css";
+
 
 /************************
  *   DECLARATION
@@ -12,23 +16,27 @@ import Summary from "./Summary";
 
 const defaultFormData = {
   age: "",
-  existingLicense: "",
-  desiredLicense: "",
-  isFrench: "",
-  residentPermit: "",
-  jobStatus: "",
+  alreadyTraining: "",
   apprentice: "",
-  franceTravail: "",
+  cpf: "",
+  creditAccess: "",
+  desiredLicense: "",
+  handicap: "",
+  initalTraining: "",
+  isFrench: "",
+  integrationIssues: "",
+  jobStatus: "",
+  lowIncomes: "",
+  necessaryForProfessionalProject: "",
+  residentPermit: "",
+  registeredToFranceTravailFor6months: "",
   reservist: "",
   snu: "",
-  integrationIssues: "",
-  handicap: "",
-  cpf: "",
-  credit: "",
+  socialIncome: "",
+  validLicenseAorB: "",
 };
 
 const Form = () => {
-
   /************************
   //*    DECLARATION DES
   //*    CONST / VAR
@@ -48,8 +56,7 @@ const Form = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-
-
+  const [helps, setHelps] = useState({});
 
   /************************
   // *    USE EFFECT
@@ -62,46 +69,45 @@ const Form = () => {
     }
   }, [step]);
 
-
-
-
   /************************
   // *    HANDLERS
    ***********************/
 
-//*_________ HANDLENEXT
-// Valide l'étape après vérif d'erreurs + enregistre datas + steps dans localstorage
+  //*_________ HANDLENEXT
+  // Valide l'étape après vérif d'erreurs + enregistre datas + steps dans localstorage
 
-const handleNext = () => {
-  if (Validation({ step, formData, setErrors })) {
-
+  const handleNext = () => {
+    if (Validation({ step, formData, setErrors })) {
+      // console.log("log handlenext"      ,Validation({ step, formData, setErrors }));
       setStep((prevStep) => {
-          const newStep = prevStep + 1;
+        const newStep = prevStep + 1;
 
-          localStorage.setItem("step", newStep);
-          localStorage.setItem("formData", JSON.stringify(formData));
-          
-          return newStep;
+        localStorage.setItem("step", newStep);
+        localStorage.setItem("formData", JSON.stringify(formData));
+
+        return newStep;
       });
-  }
-};
+    } else {
+      console.log("validation failed");
+    }
+  };
 
-//*_________ HANDLEPREV
-// Retourne à l'étape précédente, met à jour le step dans localstorage
+  //*_________ HANDLEPREV
+  // Retourne à l'étape précédente, met à jour le step dans localstorage
 
   const handlePrev = () => {
     setStep(step - 1);
     localStorage.setItem("step", step - 1);
   };
 
-//*_________ HANDLECHANGE
-// Mise à jour des saisies dans les champs
+  //*_________ HANDLECHANGE
+  // Mise à jour des saisies dans les champs
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     setFormData((prevData) => {
-      let updatedData = { ...prevData, [name]: value }
+      let updatedData = { ...prevData, [name]: value };
 
       if (name === "isFrench") {
         updatedData = {
@@ -114,23 +120,30 @@ const handleNext = () => {
         updatedData = {
           ...updatedData,
           apprentice: value === "étudiant.e" ? prevData.apprentice : null,
-          franceTravail: value === "sans emploi" ? prevData.franceTravail : null,
+          registeredToFranceTravailFor6months:
+            value === "sans emploi" ? prevData.registeredToFranceTravailFor6months : null,
         };
       }
-      return updatedData
+      return updatedData;
     });
   };
 
-//*_________ HANDLESUBMIT
-// Valide le formulaire + affiche le résumé des données saisies par l'utilisateur
+  //*_________ HANDLESUBMIT
+  // Valide le formulaire
+  // + affiche le résumé des données saisies par l'utilisateur
+  // + affiche les aides disponibles
 
   const handleSubmit = () => {
     localStorage.setItem("formData", JSON.stringify(formData));
+
+    const availableHelps = validateHelps(formData);
+    setHelps(availableHelps);
+
     setIsSubmitted(true);
   };
 
-//*_________ HANDLERESTART
-// Retour step 1 avec champs et localstorage cleared
+  //*_________ HANDLERESTART
+  // Retour step 1 avec champs et localstorage cleared
 
   const handleRestart = () => {
     setFormData(defaultFormData);
@@ -139,9 +152,6 @@ const handleNext = () => {
     localStorage.removeItem("step");
     setIsSubmitted(false);
   };
-
-
-
 
   const steps = getSteps({
     formData,
@@ -153,28 +163,27 @@ const handleNext = () => {
     handleSubmit,
   });
 
-
-
-
   /************************
   //*     RETURN
    ***********************/
 
   return (
-    <Container>
+    <Container className="display-container">
       {isSubmitted ? (
-        <Summary
-          formData={formData}
-          onRestart={handleRestart}
-        />
+        <Summary formData={formData} helps={helps} onRestart={handleRestart} />
       ) : (
         <>
-          <FormStepper step={step} />
+          <div className="title-banner">
+            <h1>Découvrez les aides dont vous pourriez bénéficier <br/>
+            pour financer votre permis de conduire</h1>
+          </div>
 
           <form>
-            {steps[step - 1]}
+            <FormStepper step={step} />
 
+            {steps[step - 1]}
           </form>
+          <StepperMobile step={step} />
         </>
       )}
     </Container>

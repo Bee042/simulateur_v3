@@ -4,8 +4,8 @@ import React from "react";
 //*_________BOUTON SUIVANT
 const NextButton = ({ disabled, onClick }) => (
   <Button
+    className="form-button"
     variant="contained"
-    color="primary"
     onClick={onClick}
     disabled={disabled}
   >
@@ -17,8 +17,8 @@ export { NextButton };
 //*_________BOUTON PRECEDENT
 const PrevButton = ({ onClick, step }) => (
   <Button
-    variant="contained"
-    color="primary"
+    className="form-button"
+    variant="outlined"
     onClick={onClick}
     disabled={step === 1}
   >
@@ -30,12 +30,13 @@ export { PrevButton };
 //*_________BOUTON VALIDER
 const ValidButton = ({ onClick, disabled }) => (
   <Button
+    className="valid-button"
     variant="contained"
-    color="primary"
+    color="success"
     onClick={onClick}
     disabled={disabled}
   >
-    Valider
+    Voir les aides
   </Button>
 );
 export { ValidButton };
@@ -43,6 +44,7 @@ export { ValidButton };
 //*_________BOUTON RESTART
 const RestartButton = ({ onClick, disabled }) => (
   <Button
+    className="restart-button"
     variant="contained"
     color="primary"
     onClick={onClick}
@@ -52,3 +54,4 @@ const RestartButton = ({ onClick, disabled }) => (
   </Button>
 );
 export { RestartButton };
+

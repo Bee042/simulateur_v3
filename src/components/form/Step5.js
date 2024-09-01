@@ -10,9 +10,10 @@ import { NextButton, PrevButton } from "../elements/FormButtons";
 const Step5 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
   return (
     <>
-      <FormControl fullWidth margin="normal" error={!!errors.integrationIssues}>
-        <FormLabel> Rencontrez-vous des difficultés d’intégration ? </FormLabel>
-
+      <FormControl className="input-wrapper" error={!!errors.integrationIssues}>
+        <FormLabel className="input-label">
+          Rencontrez-vous des <strong>difficultés</strong> d’intégration sociale, professionnelles ou matérielles ?
+        </FormLabel>
         <div>
           <FormControlLabel
             control={
@@ -42,8 +43,10 @@ const Step5 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
         )}
       </FormControl>
 
-      <FormControl fullWidth margin="normal" error={!!errors.handicap}>
-        <FormLabel>Êtes-vous en situation de handicap ?</FormLabel>
+      <FormControl className="input-wrapper" error={!!errors.handicap}>
+        <FormLabel className="input-label">
+          Êtes-vous en situation de <strong>handicap</strong> ?
+        </FormLabel>
 
         <div>
           <FormControlLabel
@@ -72,14 +75,14 @@ const Step5 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
         {errors.handicap && <FormHelperText>{errors.handicap}</FormHelperText>}
       </FormControl>
 
-      <PrevButton onClick={handlePrev} />
+      <div>
+        <PrevButton onClick={handlePrev} />
 
-      <NextButton
-        onClick={handleNext}
-        disabled={
-          !formData.integrationIssues || !formData.handicap
-        }
-      />
+        <NextButton
+          onClick={handleNext}
+          disabled={!formData.integrationIssues || !formData.handicap}
+        />
+      </div>
     </>
   );
 };

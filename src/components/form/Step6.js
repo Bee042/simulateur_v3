@@ -16,10 +16,9 @@ const Step6 = ({
 }) => {
   return (
     <>
-      <FormControl fullWidth margin="normal" error={!!errors.cpf}>
-        <FormLabel>
-          {" "}
-          Disposez-vous d’un Compte Personnel de Formation ?{" "}
+      <FormControl className="input-wrapper" error={!!errors.cpf}>
+        <FormLabel className="input-label">
+          Disposez-vous d’un <strong>CPF</strong> (Compte Personnel de Formation) ?{" "}
         </FormLabel>
 
         <div>
@@ -49,15 +48,18 @@ const Step6 = ({
         {errors.cpf && <FormHelperText>{errors.cpf}</FormHelperText>}
       </FormControl>
 
-      <FormControl fullWidth margin="normal" error={!!errors.credit}>
-        <FormLabel> Avez vous accès au crédit bancaire ? </FormLabel>
+      <FormControl className="input-wrapper" error={!!errors.creditAccess}>
+        <FormLabel className="input-label">
+          {" "}
+          Avez vous accès au <strong>crédit bancaire</strong> traditionnel ?{" "}
+        </FormLabel>
 
         <div>
           <FormControlLabel
             control={
               <Radio
-                name="credit"
-                checked={formData.credit === "true"}
+                name="creditAccess"
+                checked={formData.creditAccess === "true"}
                 onChange={handleChange}
                 value="true"
               />
@@ -67,8 +69,8 @@ const Step6 = ({
           <FormControlLabel
             control={
               <Radio
-                name="credit"
-                checked={formData.credit === "false"}
+                name="creditAccess"
+                checked={formData.creditAccess === "false"}
                 onChange={handleChange}
                 value="false"
               />
@@ -76,16 +78,72 @@ const Step6 = ({
             label="Non"
           />
         </div>
-        {errors.credit && <FormHelperText>{errors.credit}</FormHelperText>}
+        {errors.creditAccess && <FormHelperText>{errors.creditAccess}</FormHelperText>}
       </FormControl>
 
-      <PrevButton onClick={handlePrev} />
+      <FormControl className="input-wrapper" error={!!errors.lowIncomes}>
+        <FormLabel className="input-label">
+          Disposez-vous de <strong>faibles ressources</strong> ?
+        </FormLabel>
+        <div>
+          {["true", "false"].map((value) => (
+            <FormControlLabel
+              key={value}
+              control={
+                <Radio
+                  name="lowIncomes"
+                  checked={formData.lowIncomes === value}
+                  onChange={handleChange}
+                  value={value}
+                />
+              }
+              label={value === "true" ? "Oui" : "Non"}
+            />
+          ))}
+        </div>
+        {errors.lowIncomes && (
+          <FormHelperText>{errors.lowIncomes}</FormHelperText>
+        )}
+      </FormControl>
 
-      <ValidButton 
-        onClick={handleSubmit} 
-        disabled={!formData.cpf || !formData.credit}
-  
-      />
+      <FormControl className="input-wrapper" error={!!errors.socialIncome}>
+        <FormLabel className="input-label">
+          Bénéficiez-vous du <strong>RSA</strong> ou de l'<strong>AAH</strong>?
+        </FormLabel>
+        <div>
+          {["true", "false"].map((value) => (
+            <FormControlLabel
+              key={value}
+              control={
+                <Radio
+                  name="socialIncome"
+                  checked={formData.socialIncome === value}
+                  onChange={handleChange}
+                  value={value}
+                />
+              }
+              label={value === "true" ? "Oui" : "Non"}
+            />
+          ))}
+        </div>
+        {errors.socialIncome && (
+          <FormHelperText>{errors.socialIncome}</FormHelperText>
+        )}
+      </FormControl>
+
+      <div>
+        <PrevButton onClick={handlePrev} />
+
+        <ValidButton
+          onClick={handleSubmit}
+          disabled={
+            !formData.cpf ||
+            !formData.creditAccess ||
+            !formData.lowIncomes ||
+            !formData.socialIncome
+          }
+        />
+      </div>
     </>
   );
 };
