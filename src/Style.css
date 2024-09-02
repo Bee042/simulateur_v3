@@ -130,6 +130,14 @@ h4 {
     font-size: 1.5rem;
   }
 
+
+/* Chip */
+.amount-chip {
+    height: 2.5rem;
+    font-size : 1.1rem;
+}
+
+
 /* En-tete accordeon */
 .MuiAccordion-root {
     margin: 20px 0;
@@ -226,12 +234,20 @@ h4 {
 }
 
 
-/* Chip */
-.amount-chip {
-    height: 2.5rem;
-    font-size : 1.1rem;
-}
+/************************/
+/**      PAGE 404       */
+/************************/
 
+.container-404 {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 60vh;
+}
+.card-404 {
+    min-width: 30rem;
+    
+}
 
 
 /************************/
