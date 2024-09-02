@@ -19,6 +19,8 @@ const Helps = {
     description:`
     Pour une première inscription, l'aide peut être de 600, 800, 1000 ou 1200 €. 
     Pour financer une formation complémentaire après échec à l'épreuve pratique pour la même catégorie de permis, l'aide est de 300 €`,
+    info: `
+    Attention : pour bénéficier de cette aide, il faut être déjà inscrit en école de conduite`,
     conditions: `
     - Accessible uniquement pour les permis de catégorie A1, A2 et B.
     - Réservé au financement d'une formation initiale
@@ -34,8 +36,9 @@ const Helps = {
     Jusqu'à 300€ pour le code et 1200€ pour la conduite`,
     amount: `
     max 300€`,
+    info: `
+    Attention : Ces critères sont donnés à titre indicatif et peuvent varier en fonction de votre région de résidence.`,
     conditions: `
-    Attention : Ces critères sont donnés à titre indicatif et peuvent varier en fonction de votre région de résidence.
     - Habiter dans le département où vous effectuez la demande,
     - Ne pas être bénéficiaire du RSA ou autre revenu social,
     - Etre inscrit dans un parcours d'insertion professionnelle,
@@ -49,6 +52,7 @@ const Helps = {
     description:`
     Certaines municipalités vous aident à financer votre formation au permis de conduire en échange d'une activité à intérêt collectif.`,
     amount: "Variable",
+    info: ``,
     conditions: `
     Aide réservée aux jeunes (souvent moins de 25 ans)
     Conditions variables selon les communes`,
@@ -63,6 +67,7 @@ const Helps = {
     - Première présentation au code gratuite selon le contrat d'engagement.`,
     amount: `
     Gratuit`,
+    info: ``,
     conditions: `
     - Avoir validé son séjour de cohésion pour avoir accès à la plateforme d'e-learning,
     - Avoir validé les 2 premières phases du SNU pour bénéficier d’une première présentation gratuite à l’ETG`,
@@ -76,6 +81,8 @@ const Helps = {
     Aide forfaitaire de 500 € valable uniquement pour le permis B`,
     amount: `
     500€`,
+    info: `
+    Attention : pour bénéficier de cette aide, il faut être déjà inscrit en école de conduite`,
     conditions: `
     - Avoir au moins 18 ans
     - Etre déjà inscrit dans la formation au permis de conduire,
@@ -92,6 +99,7 @@ const Helps = {
     Dans le cadre de votre recherche d'emploi, vous pouvez bénéficier, sous certaines conditions, d'une aide de France Travail de 1200€ maximum.`,
     amount: `
     max 1200€`,
+    info: ``,
     conditions: `
     - Avoir au moins 18 ans,
     - Etre demandeur d'emploi depuis au moins 6 mois consécutifs
@@ -108,6 +116,7 @@ const Helps = {
     L’épreuve théorique est gratuite sous conditions.
     L’épreuve pratique est gratuite.`,
     amount: `Gratuit`,
+    info: ``,
     conditions: `
     L’épreuve théorique est gratuite, si vous remplissez 2 conditions :
     - Vous avez un avis médical d’aptitude en lien avec votre handicap ;
@@ -126,6 +135,7 @@ const Helps = {
     Tous les permis sont éligibles`,
     amount: `
     Variable`,
+    info: ``,
     conditions:`
     - Ne pas disposer d'un permis de conduire valable en France,
     - Justifier que l'obtention de ce permis participe à la réalisation de votre projet professionnel.
@@ -141,8 +151,9 @@ const Helps = {
     Participation de 1000€`,
     amount: `
     1000€`,
+    info: `
+    Attention : cette aide est accessible uniquement si vous remplissez toutes les conditions suivantes :`,
     conditions: `
-    Attention : cette aide est accessible uniquement si vous remplissez toutes ces conditions suivantes :
     - Avoir signé un contrat initial d'engagement à servir avant l'âge de 25 ans.
     - Ne jamais avoir été titulaire d'un permis de catégorie B.
     - Avoir effectué au moins 50 jours d'activité dans la réserve.
@@ -159,16 +170,14 @@ const Helps = {
     Crédit de faible montant et adapté aux revenus, utilisable pour le financement du permis de conduire.`,
     amount: `
     300 - 8000€`,
+    info: ``,
     conditions: `
-    Etre exclu.e du système bancaire classique,`,
+    Etre exclu.e du système bancaire classique`,
     procedure: `
     Adressez-vous à un service d'accompagnement social qui servira d'intermédiaire avec le système bancaire.`,
     display: false,
   },
 };
-
-
-// Fonction pour transformer les conditions en une liste JSX
 
 
 
@@ -235,7 +244,7 @@ const validateHelps = (formData) => {
     isDesiredLicenseFor1Euro &&
     isInitialTraining &&
     !hasValidLicenseAorB
-    // Condition disabled i order to display the help even if the user is not registered yet in a school
+    // Condition disabled in order to display the help even if the user is not registered yet in a school
     // isAlreadyTraining
   ) {
     updatedHelps.help1.display = true;
@@ -301,6 +310,7 @@ const validateHelps = (formData) => {
   if (
     isAgeMin18 &&
     isRegisteredToFranceTravailFor6months &&
+    hasSocialIncomes &&
     isDesiredLicenseIsB
   ) {
     updatedHelps.help6.display = true;
@@ -358,7 +368,6 @@ const validateHelps = (formData) => {
     isReservistValid
   ) {
     updatedHelps.help9.display = true;
-    // console.log("passage IF ok");
   }
   // console.log("Reservist     :", isReservistValid);
 
@@ -390,7 +399,6 @@ const displayHelps = (helps, onClick) => {
         .filter((help) => help.display)
         // transformer chaque item et retourner le composant
         .map((help, index) => (
-
           <Accordion key={index}>
             <AccordionSummary
               className="accordion-summary"
@@ -401,7 +409,11 @@ const displayHelps = (helps, onClick) => {
               </Typography>
 
               <Stack direction="row" spacing={1}>
-                <Chip className="amount-chip" label={help.amount} color="success" />
+                <Chip
+                  className="amount-chip"
+                  label={help.amount}
+                  color="success"
+                />
               </Stack>
             </AccordionSummary>
 
@@ -410,30 +422,36 @@ const displayHelps = (helps, onClick) => {
 
               {help.description && (
                 <>
-                <p className="help-undertitle">Description : </p>
+                  <p className="help-undertitle">Description : </p>
                   <p className="help-text">{help.description}</p>
                 </>
               )}
 
+
               {help.conditions && (
                 <>
-                <p className="help-undertitle">Conditions : </p>
-                <ul className="help-text">
+                  <p className="help-undertitle">Conditions : </p>
+                  {help.info && (
+                  <p className="help-info">{help.info}</p>
+              )}
+
+                  <ul className="help-text">
                     {help.conditions
                       .split("\n") // Split the conditions string by new lines
                       .filter((condition) => condition.trim() !== "") // Remove any empty strings
                       .map((condition, i) => (
                         <li key={i}>{condition.trim()}</li> // Trim and display each condition
                       ))}
-                  </ul>              </>
-            )}
+                  </ul>{" "}
+                </>
+              )}
 
               {help.procedure && (
                 <>
-                <p className="help-undertitle">Où s'adresser ? </p>
-                <p className="help-text">{help.procedure}</p>
-              </>
-            )}
+                  <p className="help-undertitle">Où s'adresser ? </p>
+                  <p className="help-text">{help.procedure}</p>
+                </>
+              )}
             </AccordionDetails>
           </Accordion>
         ))}

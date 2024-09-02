@@ -209,18 +209,22 @@ h4 {
 }
 
 .help-text{
-    margin-block-start: 4px;
-    margin-block-end: 16px;
-    font-size: 1rem;
-}
-
-/* Listes description aides */
-.help-text {
     list-style-type: none;
     margin-block-start: 4px;
     margin-block-end: 4px;
+    font-size: 1rem;
     padding: 0 6px;
 }
+
+.help-info{
+    color:chocolate;
+    font-style: italic;
+    font-weight: 600;
+    margin-block-start: 0;
+    margin-block-end: 0;
+
+}
+
 
 /* Chip */
 .amount-chip {
