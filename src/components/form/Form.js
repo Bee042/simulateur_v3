@@ -14,6 +14,7 @@ import "../../Style.css";
  *   CONST / ETATS
  ***********************/
 
+// Default values of the form fields
 const defaultFormData = {
   age: "",
   alreadyTraining: "",
@@ -37,11 +38,13 @@ const defaultFormData = {
 };
 
 const Form = () => {
+
   /************************
   //*    DECLARATION DES
   //*    CONST / VAR
    ************************/
 
+  // 
   const [formData, setFormData] = useState(() => {
     const savedData = JSON.parse(localStorage.getItem("formData"));
     return savedData || defaultFormData;
@@ -54,7 +57,12 @@ const Form = () => {
     return savedStep ? parseInt(savedStep, 10) : 1;
   });
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  // const [isSubmitted, setIsSubmitted] = useState(false);
+  let isSubmitted = false;
+  const alreadySubmitted = localStorage.getItem("submitted");
+  if (alreadySubmitted) {
+    isSubmitted = true
+  }
 
   const [helps, setHelps] = useState({});
 
@@ -139,7 +147,8 @@ const Form = () => {
     const availableHelps = validateHelps(formData);
     setHelps(availableHelps);
 
-    setIsSubmitted(true);
+    isSubmitted = true
+    localStorage.setItem("submitted", "true");
   };
 
   //*_________ HANDLERESTART
@@ -150,7 +159,8 @@ const Form = () => {
     setStep(1);
     localStorage.removeItem("formData");
     localStorage.removeItem("step");
-    setIsSubmitted(false);
+    localStorage.removeItem("submitted");
+    // isSubmitted = false;
   };
 
   const steps = getSteps({
@@ -170,7 +180,10 @@ const Form = () => {
   return (
     <Container className="display-container">
       {isSubmitted ? (
-        <Summary formData={formData} helps={helps} onRestart={handleRestart} />
+        <Summary 
+        formData={formData} 
+        helps={helps} 
+        onRestart={handleRestart} />
       ) : (
         <>
           <div className="title-banner">

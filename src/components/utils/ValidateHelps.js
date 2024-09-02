@@ -434,7 +434,6 @@ const displayHelps = (helps, onClick) => {
                   {help.info && (
                   <p className="help-info">{help.info}</p>
               )}
-
                   <ul className="help-text">
                     {help.conditions
                       .split("\n") // Split the conditions string by new lines
