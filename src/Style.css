@@ -246,9 +246,12 @@ h4 {
 }
 .card-404 {
     min-width: 30rem;
-    
+    padding: 20px;
 }
 
+.button-404 {
+    margin-top: 1.5rem;
+}
 
 /************************/
 /**     RESPONSIVE      */
@@ -340,4 +343,9 @@ h4 {
     .card-content-text {
         text-indent:-6px;
     }
+    .card-404 {
+        min-width: 10rem;
+        font-size: 0.9rem;
+    }
+    
 }
