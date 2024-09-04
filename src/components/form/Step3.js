@@ -9,6 +9,12 @@ import {
 } from "@mui/material";
 import { NextButton, PrevButton } from "../elements/FormButtons";
 
+
+/**
+ * Step 3 of the form
+ * Provides fields concerning the professional situation of the user
+ */
+
 const Step3 = ({
   errors,
   // setFormData,
@@ -37,9 +43,7 @@ const Step3 = ({
           onChange={handleChange}
           displayEmpty
         >
-          <MenuItem value="" disabled>
-            Choisissez
-          </MenuItem>
+          <MenuItem value="" disabled>Choisissez</MenuItem>
           <MenuItem value="salarié.e">Salarié.e</MenuItem>
           <MenuItem value="étudiant.e">Etudiant.e</MenuItem>
           <MenuItem value="sans emploi">Sans emploi</MenuItem>

@@ -6,6 +6,24 @@ import Step4 from "./Step4";
 import Step5 from "./Step5";
 import Step6 from "./Step6";
 
+
+/**
+ * * Function that creates an array of all the step components
+ * 
+ * It takes a parameter object :
+ * @param {Object} params.formData : form datas used by the steps  - see Form.js
+ * @param {Function} params.setFormData : updates formData  - see Form.js
+ * @param {Object} params.errors : contains form validation errors -see Validation.js
+ * @param {Function} params.handleChange : handles the form fields changes  - see Form.js
+ * @param {Function} params.handleNext : handles moving to next step  - see Form.js
+ * @param {Function} params.handlePrev : handles moving to previous step  - see Form.js
+ * @param {Function} params.handleSubmit : handles form submission - see Form.js
+ * 
+ * @returns {Array} : returns an array of all the step components
+ */
+
+
+
 const getSteps = ({
   formData,
   setFormData,

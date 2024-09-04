@@ -7,6 +7,14 @@ import {
 } from "@mui/material";
 import { PrevButton, ValidButton } from "../elements/FormButtons";
 
+
+/**
+ * Step 6 of the form
+ * Provides fields concerning the financial situation of the user
+ * Allows validation of the form with handleSubmit
+ * (that stores the datas, the steps and the state of submission of the form)
+ */
+
 const Step6 = ({
   formData,
   errors,
@@ -16,70 +24,63 @@ const Step6 = ({
 }) => {
   return (
     <>
-      <FormControl className="input-wrapper" error={!!errors.cpf}>
+      <FormControl className="input-wrapper" error={!!errors.cpf} fullWidth>
         <FormLabel className="input-label">
-          Disposez-vous d’un <strong>CPF</strong> (Compte Personnel de Formation) ?{" "}
+          Disposez-vous d’un <strong>CPF</strong> (Compte Personnel de Formation) ?
         </FormLabel>
 
         <div>
-          <FormControlLabel
-            control={
-              <Radio
-                name="cpf"
-                checked={formData.cpf === "true"}
-                onChange={handleChange}
-                value="true"
-              />
-            }
-            label="Oui"
-          />
-          <FormControlLabel
-            control={
-              <Radio
-                name="cpf"
-                checked={formData.cpf === "false"}
-                onChange={handleChange}
-                value="false"
-              />
-            }
-            label="Non"
-          />
+          {["true", "false"].map((value) => (
+            <FormControlLabel
+              key={value}
+              control={
+                <Radio
+                  name="cpf"
+                  checked={formData.cpf === value}
+                  onChange={handleChange}
+                  value={value}
+                />
+              }
+              label={value === "true" ? "Oui" : "Non"}
+            />
+          ))}
         </div>
         {errors.cpf && <FormHelperText>{errors.cpf}</FormHelperText>}
       </FormControl>
 
-      <FormControl className="input-wrapper" error={!!errors.creditAccess}>
+
+
+      <FormControl
+        className="input-wrapper"
+        error={!!errors.creditAccess}
+        fullWidth
+      >
         <FormLabel className="input-label">
-          {" "}
-          Avez vous accès au <strong>crédit bancaire</strong> traditionnel ?{" "}
+          Avez-vous accès au <strong>crédit bancaire</strong> traditionnel ?
         </FormLabel>
 
         <div>
-          <FormControlLabel
-            control={
-              <Radio
-                name="creditAccess"
-                checked={formData.creditAccess === "true"}
-                onChange={handleChange}
-                value="true"
-              />
-            }
-            label="Oui"
-          />
-          <FormControlLabel
-            control={
-              <Radio
-                name="creditAccess"
-                checked={formData.creditAccess === "false"}
-                onChange={handleChange}
-                value="false"
-              />
-            }
-            label="Non"
-          />
+          {["true", "false"].map((value) => (
+            <FormControlLabel
+              key={value}
+              control={
+                <Radio
+                  name="creditAccess"
+                  checked={formData.creditAccess === value}
+                  onChange={handleChange}
+                  value={value}
+                />
+              }
+              label={value === "true" ? "Oui" : "Non"}
+            />
+          ))}
         </div>
-        {errors.creditAccess && <FormHelperText>{errors.creditAccess}</FormHelperText>}
+        {errors.creditAccess && (
+          <FormHelperText>{errors.creditAccess}</FormHelperText>
+        )}
       </FormControl>
+
+
 
       <FormControl className="input-wrapper" error={!!errors.lowIncomes}>
         <FormLabel className="input-label">
@@ -106,6 +107,8 @@ const Step6 = ({
         )}
       </FormControl>
 
+
+
       <FormControl className="input-wrapper" error={!!errors.socialIncome}>
         <FormLabel className="input-label">
           Bénéficiez-vous du <strong>RSA</strong> ou de l'<strong>AAH</strong>?
@@ -130,6 +133,7 @@ const Step6 = ({
           <FormHelperText>{errors.socialIncome}</FormHelperText>
         )}
       </FormControl>
+
 
       <div>
         <PrevButton onClick={handlePrev} />

@@ -8,12 +8,18 @@ import {
 } from "@mui/material";
 import { NextButton, PrevButton } from "../elements/FormButtons";
 
+/**
+ * Step 2 of the form
+ * Provides fields concerning the age and nationality of the user
+ */
+
+
 const Step2 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
   return (
     <>
       <FormControl className="input-wrapper" error={!!errors.age}>
         <TextField
-        className="input-field"
+          className="input-field"
           label="Saisissez votre âge"
           type="text"
           name="age"
@@ -25,77 +31,65 @@ const Step2 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
         {errors.age && <FormHelperText>{errors.age}</FormHelperText>}
       </FormControl>
 
-      <FormControl className="input-wrapper" error={!!errors.isFrench}>
+      <FormControl
+        className="input-wrapper"
+        error={!!errors.isFrench}
+        fullWidth
+      >
         <FormLabel className="input-label">
-          Etes vous de nationalité française ?
+          Êtes-vous de nationalité française ?
         </FormLabel>
-
         <div>
-          <FormControlLabel
-            control={
-              <Radio
-                name="isFrench"
-                checked={formData.isFrench === "true"}
-                value="true"
-                onChange={handleChange}
-              />
-            }
-            label="Oui"
-          />
-
-          <FormControlLabel
-            control={
-              <Radio
-                name="isFrench"
-                checked={formData.isFrench === "false"}
-                onChange={handleChange}
-                value="false"
-              />
-            }
-            label="Non"
-          />
+          {["true", "false"].map((value) => (
+            <FormControlLabel
+              key={value}
+              control={
+                <Radio
+                  name="isFrench"
+                  checked={formData.isFrench === value}
+                  onChange={handleChange}
+                  value={value}
+                />
+              }
+              label={value === "true" ? "Oui" : "Non"}
+            />
+          ))}
         </div>
         {errors.isFrench && <FormHelperText>{errors.isFrench}</FormHelperText>}
       </FormControl>
 
       {formData.isFrench === "false" && (
-        <FormControl className="input-wrapper" error={!!errors.residentPermit}>
+        <FormControl
+          className="input-wrapper"
+          error={!!errors.residentPermit}
+          fullWidth
+        >
           <FormLabel className="input-label">
-            {" "}
-            Disposez vous d'un permis de séjour en cours de validité ?{" "}
+            Disposez-vous d'un permis de séjour en cours de validité ?
           </FormLabel>
 
           <div>
-            <FormControlLabel
-              control={
-                <Radio
-                  name="residentPermit"
-                  checked={formData.residentPermit === "true"}
-                  onChange={handleChange}
-                  value="true"
-                />
-              }
-              label="Oui"
-            />
-
-            <FormControlLabel
-              control={
-                <Radio
-                  name="residentPermit"
-                  checked={formData.residentPermit === "false"}
-                  onChange={handleChange}
-                  value="false"
-                />
-              }
-              label="Non"
-            />
+            {["true", "false"].map((value) => (
+              <FormControlLabel
+                key={value}
+                control={
+                  <Radio
+                    name="residentPermit"
+                    checked={formData.residentPermit === value}
+                    onChange={handleChange}
+                    value={value}
+                  />
+                }
+                label={value === "true" ? "Oui" : "Non"}
+              />
+            ))}
           </div>
-
           {errors.residentPermit && (
             <FormHelperText>{errors.residentPermit}</FormHelperText>
           )}
         </FormControl>
       )}
+
 
       <div>
         <PrevButton onClick={handlePrev} />

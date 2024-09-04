@@ -10,24 +10,33 @@ import React from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 
-
+/**
+ *  Define an object containing information about different financial helps for driving license
+ */
 const Helps = {
   help1: {
+    // name of the help
     name: "Permis à 1€ par jour",
+    // amount is displayed in a chip
     amount: `
     300-1200€`,
+    // global description on the help
     description:`
     Pour une première inscription, l'aide peut être de 600, 800, 1000 ou 1200 €. 
     Pour financer une formation complémentaire après échec à l'épreuve pratique pour la même catégorie de permis, l'aide est de 300 €`,
+    // additional info or warning
     info: `
     Attention : pour bénéficier de cette aide, il faut être déjà inscrit en école de conduite`,
+    // conditions to meet to get the help
     conditions: `
     - Accessible uniquement pour les permis de catégorie A1, A2 et B.
     - Réservé au financement d'une formation initiale
     - Utilisable pour une formation complémentaire en cas d'échec à l'épreuve pratique si elle a été financé par le même prêt.
     - Ne peut être attribué qu'une fois par bénéficiaire et pour une même catégorie de permis.`,
+    // how to proceed or where to get information to get this help
     procedure: `
     Contactez une école de conduite labellisée.`,
+    // boolean to control if the help is displayed of not, 'false' by default
     display: false,
   },
   help2: {
@@ -180,11 +189,18 @@ const Helps = {
 };
 
 
-
+/**
+ * Function to validate and update the helps the user could get
+ */
 const validateHelps = (formData) => {
+  // create a copy of the 'Helps' object defined above to update its display properties
   const updatedHelps = { ...Helps };
 
-  // Fonction pour transformer les propriétés de l'objet formData en types correct (especially transforming string values to boolean)
+
+  /**
+   * Defines a boolean variable based on the 'formData' object
+   * each variable is used for stpecific conditions to meet and returns a boolean
+   */
   const isDesiredLicenseFor1Euro =
     formData.desiredLicense === "A1" ||
     formData.desiredLicense === "A2" ||
@@ -195,10 +211,9 @@ const validateHelps = (formData) => {
     formData.desiredLicense === 'B96' || 
     formData.desiredLicense === 'C' || 
     formData.desiredLicense === 'D';
-  // const isAlreadyTraining = formData.alreadyTraining === "true";
   const isInitialTraining = formData.initalTraining === "true";
   const isNecessaryForProfessionalProject = formData.necessaryForProfessionalProject === "true";
-  const hasValidLicenseAorB = formData.validLicenseAorB === 'true';         // Convert string to boolean
+  const hasValidLicenseAorB = formData.validLicenseAorB === 'true';
   const isAge15to25 = formData.age >= 15 && formData.age <= 25;
   const isAge18to25  = formData.age >= 18 && formData.age <= 25;
   const isAgeMin18  = formData.age >= 18;
@@ -210,34 +225,19 @@ const validateHelps = (formData) => {
   const isReservistValid = formData.reservist === "true";
   const hasIntegrationIssues = formData.integrationIssues === "true";
   const hasHandicap = formData.handicap === "true";
-  const hasCpf = formData.cpf === 'true';                                   // Assuming formData.cpf is a string
+  const hasCpf = formData.cpf === 'true';
   const hasLowIncome = formData.lowIncomes === "true";
   const hasSocialIncomes = formData.socialIncome === "true";
   const hasCreditAccess = formData.creditAccess === "true";
 
-  //* CONSOLE.LOG
-  // console.log('isDesiredLicenseFor1Euro:', typeof isDesiredLicenseFor1Euro);
-  // console.log('isDesiredLicenseIsB:', typeof isDesiredLicenseIsB);
-  // console.log('isDesiredLicenseForCPF:', typeof isDesiredLicenseForCPF);
-  // console.log('isAlreadyTraining:', typeof isAlreadyTraining);
-  // console.log('isInitialTraining:', typeof isInitialTraining);
-  // console.log('isNecessaryForProfessionalProject:', typeof isNecessaryForProfessionalProject);
-  // console.log('hasValidLicenseAorB:', typeof hasValidLicenseAorB);
-  // console.log('isAge15to25:', typeof isAge15to25);
-  // console.log('isAge18to25:', typeof isAge18to25);
-  // console.log('isAgeMin18:', typeof isAgeMin18);
-  // console.log('isApprentice:', typeof isApprentice);
-  // console.log('isRegisteredToFranceTravailFor6months:', typeof isRegisteredToFranceTravailFor6months);
-  // console.log('isSnuValid:', typeof isSnuValid);
-  // console.log('isReservistValid:', typeof isReservistValid);
-  // console.log('hasIntegrationIssues:', typeof hasIntegrationIssues);
-  // console.log('hasHandicap:', typeof hasHandicap);
-  // console.log('hasCpf:', typeof hasCpf);
-  // console.log('isSocialIncomeValid:', typeof isSocialIncomeValid);
-  // console.log('hasCreditAccess:', typeof hasCreditAccess);
-
-
   
+
+  /**
+   * Section to evaluate different eligibility crieteria based of 'formData' 
+   * and updates the 'updateHelps' object to indicate which helps should be displayed
+   * Each help has it's own block of validation rules and retunrs true if all the conditions are met (means the help will be displayed)
+   */
+
   //* PERMIS 1 EURO
   if (
     isAge15to25 &&
@@ -249,12 +249,10 @@ const validateHelps = (formData) => {
   ) {
     updatedHelps.help1.display = true;
   }
-  // console.log("1euro     :", updatedHelps.help1.display);
 
 
 
   //* FOND AIDE AUX JEUNES
-  // console.log("FAJ   ", formData);
   if (
     isAge18to25  &&
     hasIntegrationIssues &&
@@ -263,9 +261,6 @@ const validateHelps = (formData) => {
   ) {
     updatedHelps.help2.display = true;
   }
-  // console.log("FAJ     :", updatedHelps.help2.display);
-
-
 
   //* BOURSE PERMIS
   // No official informations (depends of the cities policies) : the help is displayed by default if the user meets the age condition
@@ -274,9 +269,6 @@ const validateHelps = (formData) => {
   ) {
     updatedHelps.help3.display = true;
   }
-  // console.log("Bourse     :", updatedHelps.help3.display);
-
-
 
   //*  SNU
     if (
@@ -286,9 +278,6 @@ const validateHelps = (formData) => {
   ) {
     updatedHelps.help4.display = true;
   }
-  // console.log("SNU     : " ,isSnuValid)
-
-
 
   //*  APPRENTIS
   // console.log("Apprenti ", formData);
@@ -301,12 +290,8 @@ const validateHelps = (formData) => {
   ) {
     updatedHelps.help5.display = true;
   }
-  // console.log("Apprentice     :", updatedHelps.help5.display);
-
-
 
   //*  POLE EMPLOI
-  // console.log("Pole Emploi ", formData);
   if (
     isAgeMin18 &&
     isRegisteredToFranceTravailFor6months &&
@@ -315,22 +300,15 @@ const validateHelps = (formData) => {
   ) {
     updatedHelps.help6.display = true;
   }
-  // console.log("FranceTravail     :", updatedHelps.help6.display);
-
-
 
   //*  HANDICAP
-  // console.log("Handicap ", formData);
   if (
     hasHandicap &&
     isNecessaryForProfessionalProject
   ) {
     updatedHelps.help7.display = true;
   }
-  // console.log("Handicap     :", updatedHelps.help7.display);
-
-  
-  
+    
   //*  CPF
   if (
     hasCpf &&
@@ -338,7 +316,6 @@ const validateHelps = (formData) => {
     isDesiredLicenseForCPF &&
     hasValidLicenseAorB 
   ) {
-  // console.log("case1 : ", hasCpf, isNecessaryForProfessionalProject, isDesiredLicenseForCPF, hasValidLicenseAorB   )
   updatedHelps.help8.display = true;
 
   } else if (
@@ -347,83 +324,83 @@ const validateHelps = (formData) => {
     !isDesiredLicenseForCPF &&
     !hasValidLicenseAorB
   ) {
-  // console.log("case2 : ", hasCpf, isNecessaryForProfessionalProject, isDesiredLicenseForCPF, hasValidLicenseAorB   )
   updatedHelps.help8.display = true;
 
   } else {
-  // console.log("case3 : ", hasCpf, isNecessaryForProfessionalProject, isDesiredLicenseForCPF, hasValidLicenseAorB   )
   updatedHelps.help8.display = false;
   }
 
-  // console.log(updatedHelps.help8.display)
-  // console.log("cpf     :", hasCpf, isNecessaryForProfessionalProject, hasValidLicenseAorB, isDesiredLicenseForCPF  );
-  // console.log("cpf:", hasCpf, "necess:", isNecessaryForProfessionalProject, "hasLicense:", hasValidLicenseAorB, "wantsAB:", isDesiredLicenseForCPF);
-
-  
-
-
   //*  RESERVISTE
-  // console.log("Reservist  ", formData);
   if (
     isReservistValid
   ) {
     updatedHelps.help9.display = true;
   }
-  // console.log("Reservist     :", isReservistValid);
-
-
 
   //*  MICROCREDIT PERSONNEL
-  // console.log("MICROCREDIT  ", formData);
   if (
     !hasCreditAccess
   ) {
     updatedHelps.help10.display = true;
     }
-  // console.log("Microcredit     :", updatedHelps.help10.display);
 
 
 return updatedHelps;
 };
-
-
-
 export { validateHelps };
 
-const displayHelps = (helps, onClick) => {
+
+
+/**
+ * This section displays the list of the available helps as an accordion component
+ * Each accordion displays information about a specific help (name, amount, description, conditions, warning, procedure)
+ * only the helps with a display set to 'true' are shown here
+ */
+
+const displayHelps = (helps) => {
   return (
     <div>
-      {/* convertir helps en tableau de ses valeurs : permet de travailler avec chaque élément help séparément */}
+      {/* convert 'helps' object to an array of its value to work with each help item separatly */}
       {Object.values(helps)
-        // créer un nouveau tableau avec uniquement les items qui ont la propriété display = true
+        // .filter creates a new array containing only the help items where display is 'true'
         .filter((help) => help.display)
-        // transformer chaque item et retourner le composant
+        // .map transforms each help item from the filtered array into an accordion component (for display)
         .map((help, index) => (
           <Accordion key={index}>
             <AccordionSummary
               className="accordion-summary"
               expandIcon={<KeyboardArrowDownIcon />}
             >
+              {/* typography is MUI component used to render text with consistent styling */}
               <Typography className="card-title" variant="h6">
+                {/* placeholder that dynamically insert the value of the help name */}
                 {help.name}
               </Typography>
 
-              <Stack direction="row" spacing={1}>
+              {/* stack is a layout component from MUI used to display the children in a specific direction with consistent spacing */}
+              <Stack
+                direction="row"
+                spacing={1}       // spacing unit predefined to 8px/scale
+              > 
+              {/* Chip is a MUI component to display short information, here the amount of the help */}
                 <Chip
                   className="amount-chip"
                   label={help.amount}
-                  color="success"
+                  color="success"         // color predefined green
                 />
               </Stack>
             </AccordionSummary>
 
             <AccordionDetails className="accordion-details">
-              {/* partie déroulante de l'accordéon */}
+              {/* displays the details of the help when the accordion is expanded */}
 
+              {/* Conditionally renders the description if help.description exists */}
+              {/* syntax : AND operator (&&) checks if the condition on its left AND if true it returns the expression on its right
+                if left expression is falsy : stops the check ans returns false without checkin right side */}
               {help.description && (
                 <>
                   <p className="help-undertitle">Description : </p>
-                  <p className="help-text">{help.description}</p>
+                  <p className="help-text">{help.description}</p>             
                 </>
               )}
 
@@ -434,10 +411,16 @@ const displayHelps = (helps, onClick) => {
                   {help.info && (
                   <p className="help-info">{help.info}</p>
               )}
+
+                  {/* renders a list of conditions, eahc condition on a new line */}
                   <ul className="help-text">
                     {help.conditions
-                      .split("\n") // Split the conditions string by new lines
-                      .filter((condition) => condition.trim() !== "") // Remove any empty strings
+                      // Split converts the multi strings condition in an array of new lines after every (\n) characters
+                      .split("\n") 
+                       // Filter creates a new array containing only the items that are not empty
+                       // .trim removes the whitespaces from each line (once it's removed, if there is a content then it is filtered)
+                      .filter((condition) => condition.trim() !== "")
+                      // map iterates over the filtered array and creates a new array of JSX elements (as a list) with a unique key 'i'
                       .map((condition, i) => (
                         <li key={i}>{condition.trim()}</li> // Trim and display each condition
                       ))}
