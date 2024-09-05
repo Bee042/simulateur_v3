@@ -193,9 +193,14 @@ const Helps = {
  * Function to validate and update the helps the user could get
  */
 const validateHelps = (formData) => {
+  // 'Object' returns an array of the keys of the Helps object
+  // 'forEach' loops over every key of this array and give to each of them the value false to its display prop
+  Object.keys(Helps).forEach((key) => {
+    Helps[key].display = false;
+  });
+
   // create a copy of the 'Helps' object defined above to update its display properties
   const updatedHelps = { ...Helps };
-
 
   /**
    * Defines a boolean variable based on the 'formData' object
@@ -215,7 +220,7 @@ const validateHelps = (formData) => {
   const isNecessaryForProfessionalProject = formData.necessaryForProfessionalProject === "true";
   const hasValidLicenseAorB = formData.validLicenseAorB === 'true';
   const isAge15to25 = formData.age >= 15 && formData.age <= 25;
-  const isAge18to25  = formData.age >= 18 && formData.age <= 25;
+  const isAge18to25 = formData.age >= 18 && formData.age <= 25;
   const isAgeMin18  = formData.age >= 18;
   const isAgeMax18  = formData.age < 18;
   const isFrenchValid = formData.isFrench === "true";
@@ -250,8 +255,6 @@ const validateHelps = (formData) => {
     updatedHelps.help1.display = true;
   }
 
-
-
   //* FOND AIDE AUX JEUNES
   if (
     isAge18to25  &&
@@ -280,7 +283,6 @@ const validateHelps = (formData) => {
   }
 
   //*  APPRENTIS
-  // console.log("Apprenti ", formData);
   if (
     isAgeMin18  &&
     isApprentice &&
@@ -343,7 +345,6 @@ const validateHelps = (formData) => {
   ) {
     updatedHelps.help10.display = true;
     }
-
 
 return updatedHelps;
 };
