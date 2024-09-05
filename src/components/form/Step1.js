@@ -46,10 +46,10 @@ const Step1 = ({ errors, formData, handleChange, handleNext }) => {
           displayEmpty  // allows select component to display empty option when no option selected
         >
           <MenuItem value="" disabled>Choisissez</MenuItem>
-          <MenuItem className="menu-item" value="A1 (moto 125cm3)">A1</MenuItem>
-          <MenuItem className="menu-item" value="A2 (moto -35kw)">A2</MenuItem>
-          <MenuItem className="menu-item" value="B (voiture)">B</MenuItem>
-          <MenuItem className="menu-item" value="BE voiture + remorque de plus de 750kgs)">BE</MenuItem>
+          <MenuItem className="menu-item" value="A1">A1</MenuItem>
+          <MenuItem className="menu-item" value="A2">A2</MenuItem>
+          <MenuItem className="menu-item" value="B">B</MenuItem>
+          <MenuItem className="menu-item" value="BE">BE</MenuItem>
           <MenuItem className="menu-item" value="B96">B96</MenuItem>
           <MenuItem className="menu-item" value="C">C</MenuItem>
           <MenuItem className="menu-item" value="D">D</MenuItem>

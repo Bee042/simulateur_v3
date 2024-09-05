@@ -23,7 +23,6 @@ const Step3 = ({
   handleNext,
   handlePrev,
 }) => {
-  // console.log("step3",typeof setFormData);
 
   return (
     <>
