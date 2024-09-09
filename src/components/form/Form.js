@@ -6,7 +6,6 @@ import Validation from "../utils/Validation";
 import HelpDisplay from "./HelpDisplay";
 import { validateHelps } from "../utils/ValidateHelps";
 import StepperMobile from "../elements/MobileStepper";
-import "../../Style.css";
 
 
 /**********************************
