@@ -11,7 +11,7 @@ const RouterConfig = () => {
 
     return(
 
-        <Router>
+        <Router basename='/react'>
             <Routes>
                 {/* route of the main page : renders the Form component if accessed */}
                 <Route path="/" element={<Form/>} />
