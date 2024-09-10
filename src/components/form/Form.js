@@ -106,6 +106,19 @@ const Form = () => {
       // 'setFormData' updates de 'formData' state with the 'savedData' found in localStorage
       setFormData(savedData);
     }
+
+    /* TODO retour haut du formulaire au changement de step */
+
+    // scroll to top of form each time the step changes
+    // we select the element with .scroll-top class (we add a special span for this effect)
+    const scrollToTop = document.querySelector(".scroll-top");
+    // if it's existing,
+    if (scrollToTop){
+        // we use the method scrollIntoView that moves the display to the element with the class .display-container
+        scrollToTop.scrollIntoView({
+          behavior: 'smooth',
+        });
+    }
       // array of dependancy : makes the useEffect run only and each time 'step' is changing
   }, [step]);
 
@@ -314,6 +327,8 @@ const Form = () => {
 
         //  if the form is not submitted : show the form and navidation components
         <>
+        {/* use of a span just to allow the scroll to top of the form each time the step changes */}
+        <span className="scroll-top"></span>
           <div className="title-banner">
             <h1>Découvrez les aides dont vous pourriez bénéficier <br/>
             pour financer votre permis de conduire</h1>
