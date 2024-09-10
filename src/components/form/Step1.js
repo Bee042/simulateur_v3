@@ -60,13 +60,14 @@ const Step1 = ({ errors, formData, handleChange, handleNext }) => {
       </FormControl>
 
 
+      {/* FIXME changer la question "formation initiale ou complémentaire" */}
       <FormControl
         className="input-wrapper"
         error={!!errors.initalTraining}
         fullWidth
       >
         <FormLabel className="input-label">
-          Est-ce une <strong>inscription initiale</strong> ou <strong>après échec à l'épreuve pratique</strong> (formation complémentaire) ?
+          Vous souhaitez financer une <strong>inscription initiale</strong> ou <strong>complémentaire</strong> (après échec à l'épreuve technique), cochez "oui"
         </FormLabel>
         <div>
           {/* map iterates over the array of stings ["true", "false"] and generate a set of radio button  */}
