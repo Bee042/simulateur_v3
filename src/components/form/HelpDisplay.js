@@ -22,30 +22,52 @@ const HelpDisplay = ({ formData, onRestart, step, steps }) => {
     // we select the element with .scroll-top class (we add a special span for this effect)
     const scrollToTop = document.querySelector(".scroll-top");
     // if it's existing,
-    if (scrollToTop){
-        // we use the method scrollIntoView that moves the display to the element with the class .display-container
-        scrollToTop.scrollIntoView({
-          behavior: 'smooth',
-        });
+    if (scrollToTop) {
+      // we use the method scrollIntoView that moves the display to the element with the class .display-container
+      scrollToTop.scrollIntoView({
+        behavior: "smooth",
+      });
     }
-      // array of dependancy : empty because we need the effect to run only one time
+    // array of dependancy : empty because we need the effect to run only one time
   }, []);
-  
-  /* TODO Séparer les aides auxquelles l'utilisateur a vraiment droit de celles auxquelles il pourrait avoir droit */
+
+  // Converts availableHelps object into an array of values, filters to keep only the helps with display true,
+  // and stocks them into filteredHelps.
+  const filteredHelps = Object.values(availableHelps).filter(
+    (help) => help.display
+  );
+
   return (
     <>
       <span className="scroll-top"></span>
 
       <div className="display-container">
-        <div className="title-banner">
-          <h1>Aides auxquelles vous pourriez prétendre :</h1>
-        </div>
+        
+        {/* if available helps found in the array : */}
+        {filteredHelps.length > 0 ? (
+          <>
+            <div className="title-banner">
+              <h1>Aides auxquelles vous pourriez prétendre :</h1>
+            </div>
 
-        <h4>
-          Certaines aides sont cumulables, renseignez-vous auprès de nos conseillers
-        </h4>
+            <h4>
+              Certaines aides sont cumulables, renseignez-vous auprès de nos
+              conseillers
+            </h4>
+            {displayHelps(availableHelps)}
+          </>
 
-        {displayHelps(availableHelps)}
+        ) : (
+          // Otherwise displays other message
+          <>
+            <h4>
+              Il semble qu'aucune aide ne corresponde à votre profil.
+            </h4>
+            <h4>
+              N'hésitez pas à vérifier les conditions auprès de nos conseillers
+            </h4>
+          </>
+        )}
 
         <div>
           <RestartButton
