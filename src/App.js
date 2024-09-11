@@ -35,7 +35,7 @@ function App() {
         {/* helps to make sure the app looks the same in different web browsers */}
         <CssBaseline />
         
-        <div className="App">
+        <div className="App" id="react-app">
           <RouterConfig />
         </div>
 

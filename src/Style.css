@@ -70,15 +70,97 @@ form {
 /**         BUTTONS          */
 /*****************************/
 
-.form-button {
+#react-app button {
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    -webkit-tap-highlight-color: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    box-sizing: border-box;
+    outline: 0;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    text-decoration: none;
+    min-width: 64px;
+    padding: 6px 16px;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: background-color 250ms
+        cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms
+        cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms
+        cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+        color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    
     margin: 1.1rem 0.5rem;
-    width: 6.5rem;
 }
 
-.restart-button {
-    margin: 1.1rem 0.5rem;
-    width: 8rem;
+#react-app .next-button {
+    color: #fff;
+    background-color: #1976d2;
+    border: 0;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
 }
+#react-app .next-button.Mui-disabled,
+.valid-button.Mui-disabled {
+    color: rgba(0, 0, 0, 0.26);
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+#react-app .next-button:hover {
+    background-color: #1565c0;
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
+#react-app .prev-button {
+    border: 0;
+    justify-content: center;
+    -webkit-justify-content: center;
+    display: -webkit-inline-flex;
+    background-color: transparent;
+    border: 1px solid rgba(25, 118, 210, 0.5);
+    color: #1976d2;
+}
+
+#react-app .prev-button:hover {
+    background-color: rgba(25, 118, 210, 0.04);
+    border: 1px solid #1976d2;
+}
+
+#react-app .valid-button {
+    display: inline-flex;
+    border: 0;
+    margin: 0;
+    color: #fff;
+    background-color: #2e7d32;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+#react-app .valid-button:hover {
+    background-color: #1b5e20;
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+}
+
+#react-app .next-button,
+.prev-button {
+    background-color: red;
+    width: 6.5rem;
+    margin: 1.1rem 0.5rem;
+}
+
+#react-app .restart-button {
+    width: 8rem;
+} */
 
 
 /*****************************/
