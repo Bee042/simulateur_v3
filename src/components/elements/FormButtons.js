@@ -11,7 +11,7 @@ import React from "react";
 
 const NextButton = ({ disabled, onClick }) => ( 
   <Button
-    className="form-button"
+    className="next-button"
     variant="contained"
     onClick={onClick} // 'onClick' property with 'onClick' parameter (eventHandler that exectues the function)
     disabled={disabled}
@@ -29,7 +29,7 @@ export { NextButton };
  */
 const PrevButton = ({ onClick, step }) => (
   <Button
-    className="form-button"
+    className="prev-button"
     variant="outlined"
     onClick={onClick}
     disabled={step === 1}
