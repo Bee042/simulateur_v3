@@ -26,18 +26,22 @@ function App() {
    * and configures a router (see Router.js) to define the content to display, depending on the url
    */
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    // injects the customize style in <head> before the default style (override MUI)
+    <StyledEngineProvider injectFirst>
 
-      <div className="App">
-        {/* wrapping the app with 'StyledEngineProvider' and using 'injectFirst' allow to override the MUI default style */}
-        <StyledEngineProvider injectFirst // injects the customize style in <head> before the default style
-        >
+      {/* provides the theme to all components */}
+      <ThemeProvider theme={theme}>
+
+        {/* helps to make sure the app looks the same in different web browsers */}
+        <CssBaseline />
+        
+        <div className="App">
           <RouterConfig />
-        </StyledEngineProvider>
-      </div>
-      
-    </ThemeProvider>
+        </div>
+
+      </ThemeProvider>
+
+    </StyledEngineProvider>
   );
 }
 
