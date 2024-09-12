@@ -51,15 +51,54 @@ form {
 /**         INPUTS           */
 /*****************************/
 
-.input-wrapper {
+#react-app .input-wrapper {
     margin: 0.7rem 0;
+    flex-direction: column;
+    display: inline-flex;
+    position: relative;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: top;
+    box-sizing: border-box;
 }
 
-.input-label {
+#react-app .input-label {
     padding: 4px 6px;
     color: rgba(0, 0, 0, 0.75);
 }
-.input-field {
+
+#react-app .age-field {
+    height: 1.4375em;
+    bottom: 0;
+    text-align: left;
+    right: 0;
+    top: -5px;
+    left: 0;
+    padding: 16.5px 14px;    
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+    border-color: rgba(0, 0, 0, 0.23);
+    width: 90%;
+    margin: 0 auto;
+    color: rgba(0, 0, 0, 0.75);
+    box-sizing: content-box;
+    font-size: 1rem;
+}
+
+#react-app .age-field:hover {
+    border-color: black
+}
+
+#react-app .age-field:focus {
+    border-color: #1565c0;
+    border-width: 2px;
+    outline: none;
+}
+
+#react-app .input-field {
     width: 90%;
     margin: 0 auto;
     color: rgba(0, 0, 0, 0.75);
@@ -95,11 +134,7 @@ form {
     letter-spacing: 0.02857em;
     text-transform: uppercase;
     border-radius: 4px;
-    transition: background-color 250ms
-        cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms
-        cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms
-        cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-        color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     
     margin: 1.1rem 0.5rem;
 }
@@ -137,12 +172,11 @@ form {
     border: 1px solid #1976d2;
 }
 
-#react-app .valid-button {
+#react-app .valid-button:disabled {
     display: inline-flex;
     border: 0;
     margin: 0;
     color: #fff;
-    background-color: #2e7d32;
     transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
@@ -151,9 +185,17 @@ form {
     box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
 }
 
+#react-app .valid-button:active {
+    display: inline-flex;
+    border: 0;
+    margin: 0;
+    color: #fff;
+    background-color: #2e7d32;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
 #react-app .next-button,
 .prev-button {
-    background-color: red;
     width: 6.5rem;
     margin: 1.1rem 0.5rem;
 }

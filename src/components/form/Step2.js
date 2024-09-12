@@ -4,8 +4,7 @@ import {
   FormHelperText,
   FormLabel,
   Radio,
-  TextField,
-} from "@mui/material";
+  } from "@mui/material";
 import { NextButton, PrevButton } from "../elements/FormButtons";
 
 /**
@@ -13,23 +12,25 @@ import { NextButton, PrevButton } from "../elements/FormButtons";
  * Provides fields concerning the age and nationality of the user
  */
 
-
 const Step2 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
   return (
     <>
       <FormControl className="input-wrapper" error={!!errors.age}>
-        <TextField
-          className="input-field"
-          label="Saisissez votre âge"
+        <input
+          className="age-field"
           type="text"
           name="age"
           value={formData.age}
-          placeholder="Entrez votre âge"
+          placeholder="Saisissez votre âge"
           onChange={handleChange}
-          inputProps={{ min: 15, max: 99, step: 1 }}
+          min="15"
+          max="99"
+          step="1"
         />
         {errors.age && <FormHelperText>{errors.age}</FormHelperText>}
       </FormControl>
+
+
 
       <FormControl
         className="input-wrapper"
@@ -89,7 +90,6 @@ const Step2 = ({ errors, formData, handleChange, handlePrev, handleNext }) => {
           )}
         </FormControl>
       )}
-
 
       <div>
         <PrevButton onClick={handlePrev} />
