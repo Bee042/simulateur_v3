@@ -6,6 +6,8 @@ import Validation from "../utils/Validation";
 import HelpDisplay from "./HelpDisplay";
 import { validateHelps } from "../utils/ValidateHelps";
 import StepperMobile from "../elements/MobileStepper";
+import Auth from "../utils/Auth"; // Assure-toi que le chemin est correct
+
 
 
 /**********************************
@@ -85,7 +87,14 @@ const Form = () => {
   const [helps, setHelps] = useState({});
 
 
+  const [showAuth, setShowAuth] = useState(false);
 
+  const handleAuthSuccess = () => {
+    isSubmitted = true;
+    localStorage.setItem("submitted", "true");
+    setShowAuth(false);
+  };
+  
 
   /************************
    **   USE EFFECT HOOK
@@ -106,8 +115,6 @@ const Form = () => {
       // 'setFormData' updates de 'formData' state with the 'savedData' found in localStorage
       setFormData(savedData);
     }
-
-    /* TODO retour haut du formulaire au changement de step */
 
     // scroll to top of form each time the step changes
     // we select the element with .scroll-top class (we add a special span for this effect)
@@ -163,8 +170,6 @@ const Form = () => {
         return newStep;
       });
       // if validation fails : log a message in the console
-    } else {
-      console.log("validation failed");
     }
   };
 
@@ -262,7 +267,7 @@ const Form = () => {
     setHelps(availableHelps);
 
     // declare the form as submitted by turning the value to "true"
-    isSubmitted = true
+    setShowAuth(true); // Affiche la page Auth
     // save the submission status in the localStorage
     localStorage.setItem("submitted", "true");
   };
@@ -312,41 +317,38 @@ const Form = () => {
  */
 
 
-  return (
-    <Container className="display-container">
-
-      {/* If the form is submitted : show the HelpDisplay component
-      that shows the available helps and the restart button*/}
-      {isSubmitted ? (
-        <HelpDisplay 
-        formData={formData} // pass the datas to HelpDisplay
-        helps={helps}  // pass the object of available helps
-        onRestart={handleRestart} // function to restart the form
-        />
-      ) : (
-
-        //  if the form is not submitted : show the form and navidation components
-        <>
-        {/* use of a span just to allow the scroll to top of the form each time the step changes */}
+return (
+  <Container className="display-container">
+    {/* Si l'utilisateur doit s'inscrire, afficher le composant Auth */}
+    {showAuth ? (
+      <Auth onSuccess={handleAuthSuccess} />
+    ) : isSubmitted ? (
+      <HelpDisplay formData={formData} helps={helps} onRestart={handleRestart} />
+    ) : (
+      <>
+        {/* Retour en haut de la page */}
         <span className="scroll-top"></span>
-          <div className="title-banner">
-            <h1>Découvrez les aides dont vous pourriez bénéficier <br/>
-            pour financer votre permis de conduire</h1>
-          </div>
 
-          {/* display the form */}
-          <form>
-            <FormStepper step={step} />
-          {/* renders the current step based on the step index in 'steps' array */}
-            {steps[step - 1]}
-          </form>
+        {/* Bannière de titre */}
+        <div className="title-banner">
+          <h1>
+            Découvrez les aides dont vous pourriez bénéficier <br />
+            pour financer votre permis de conduire
+          </h1>
+        </div>
 
-          {/* display the StepperMobile component if screen <900px */}
-          <StepperMobile step={step} />
-        </>
-      )}
-    </Container>
-  );
-};
+        {/* Formulaire du simulateur */}
+        <form>
+          <FormStepper step={step} />
+          {steps[step - 1]}
+        </form>
+
+        {/* Stepper version mobile */}
+        <StepperMobile step={step} />
+      </>
+    )}
+  </Container>
+);
+}
 
 export default Form;

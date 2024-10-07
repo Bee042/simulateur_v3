@@ -1,49 +1,40 @@
-const express = require('express'); // Import the Express framework
-const sequelize = require('./config/db'); // Import the Sequelize database configuration
-const User = require('./models/User.js'); // Import the User model
-const FormData = require('./models/FormData.js'); // Import the FormData model
-const jwt = require('jsonwebtoken'); // Import the jsonwebtoken package
-const app = express(); // Create an instance of an Express application
+// Importation des modules nécessaires
+const express = require('express'); // Express pour créer le serveur
+const app = express(); // Initialisation de l'application Express
+const PORT = 3001; // Le port sur lequel le serveur va écouter
+const sequelize = require('./config/db'); // Importation de la configuration de la base de données
+const authRoutes = require('./routes/auth'); // Importation des routes d'authentification
 
-app.use(express.json()); // Middleware to parse JSON request bodies
 
-// Test database connection
-sequelize.sync().then(() => { // Synchronize models with the database
-  console.log('Database & tables created!'); // Log success message
-}).catch(err => console.log(err)); // Log any errors during synchronization
+// Importation des modèles
+// const User = require('./models/User');
+// const FormData = require('./models/FormData');
+// const Helps = require('./models/Helps');
 
-// Middleware to verify the token
-const verifyToken = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1]; // Get the token from headers
+const cors = require('cors'); // Importation du middleware CORS
+app.use(cors()); // Utilisation de CORS pour autoriser les requêtes cross-origin
 
-    if (!token) {
-        return res.status(403).json({ message: 'Accès non autorisé.' });
-    }
+// Middleware pour traiter les données JSON
+app.use(express.json()); // Cela permet au serveur d'accepter les requêtes au format JSON
 
-    jwt.verify(token, 'secretkey', (err, decoded) => {
-        if (err) {
-            return res.status(401).json({ message: 'Token invalide.' });
-        }
-        req.userId = decoded.id; // Store the user ID in the request
-        next(); // Proceed to the next middleware
-    });
-};
+app.use('/react', authRoutes); // Toutes les routes d'authentification commenceront par /auth
 
-// Protected route
-app.get('/protected', verifyToken, (req, res) => {
-    res.json({ message: 'Accès autorisé.', userId: req.userId });
+
+// Route de test pour vérifier que le serveur fonctionne
+app.get('/', (req, res) => {
+  res.send('Le serveur fonctionne !'); // Envoie une réponse pour confirmer que le serveur tourne
 });
 
-// Start the server
-const PORT = process.env.PORT || 3000; // Set the port to the environment variable or default to 3000
-app.listen(PORT, () => { // Start listening on the specified port
-  console.log(`Server running on port ${PORT}`); // Log server running message
+// Synchronisation des modèles avec la base de données
+sequelize.sync() // Ceci synchronise la base de données et lit la variable sequelize
+  .then(() => {
+    console.log('La synchronisation avec la base de données a réussi.');
+  })
+  .catch(err => {
+    console.error('Erreur lors de la synchronisation avec la base de données :', err);
+  });
+
+// Lancement du serveur sur le port spécifié
+app.listen(PORT, () => {
+  console.log(`Le serveur est démarré et écoute sur le port ${PORT}`); // Message dans le terminal pour dire que le serveur fonctionne
 });
-
-// Import routes
-const authRoutes = require('./routes/auth');
-const formRoutes = require('./routes/form');
-
-// Use routes
-app.use('/auth', authRoutes);
-app.use('/form', formRoutes); // Route for form data
