@@ -1,14 +1,24 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "backend_simulateur",
+  "version": "2.0.0",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "back-end",
+    "simulateur",
+    "permis de conduire",
+    "Node.js",
+    "Express",
+    "Sequelize",
+    "MySQL",
+    "API",
+    "formulaire"
+  ],
+  "author": "Barbara B.",
   "license": "ISC",
-  "description": "",
+  "description": "Back-end pour le simulateur d'aides au permis de conduire, avec Express, Sequelize et MySQL.",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.0",

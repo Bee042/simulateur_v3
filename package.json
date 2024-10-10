@@ -1,23 +1,19 @@
 {
-  "name": "simulateur_v2",
-  "version": "0.1.0",
+  "name": "simulateur_aides_permis",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
-    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.7",
-    "cors": "^2.8.5",
-    "mysql2": "^3.11.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.0",
     "react-scripts": "5.0.1",
-    "sequelize": "^6.37.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -44,9 +40,22 @@
       "last 1 safari version"
     ]
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "Simulateur d'aides au permis de conduire, développé en React avec un formulaire multi-étapes.",
   "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "simulateur",
+    "permis de conduire",
+    "React",
+    "Material UI",
+    "Emotion",
+    "Axios",
+    "formulaire multi-étapes",
+    "front-end",
+    "UI responsive",
+    "React Router",
+    "REST API",
+    "JSX"
+  ],
+  "author": "Barbara B.",
+  "developedAt": "July 2024 - September 2024"
 }
