@@ -1,75 +1,44 @@
-<<<<<<< HEAD
-# simulateur_v3
-simulateur v2 + backend
-=======
-# Getting Started with Create React App
+# Simulateur d'Aides au Permis de Conduire
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**simulateur v2 + backend**
 
-## Available Scripts
+## **Introduction**  
+Ce projet est un simulateur d'aides financières au permis de conduire, développé en **React** pour le front-end et en **Node.js** avec **Express** pour le back-end.
+Il permet aux utilisateurs d'obtenir des aides personnalisées en fonction des informations saisies via un formulaire multi-étapes et après avoir saisi son email et un pseudo
 
-In the project directory, you can run:
+## **Fonctionnalités**  
+- Formulaire multi-étapes avec validation par étape
+- Sauvegarde automatique des données dans le localStorage
+- Sauvegarde mail/pseudo + formdata + aides filtrées dans une bdd
+- Affichage des aides sous forme d'accordéon
+- Interface responsive (mobile-friendly)
+  
+
+## **Scripts disponibles**
+
+Dans le répertoire du projet, vous pouvez exécuter les commandes suivantes :
 
 ### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
+- Lance l'application en mode développement.
+- Ouvrir [http://localhost:3000](http://localhost:3000) pour voir l'application dans le navigateur.
+  
 ### `npm run build`
+- Construit l'application pour la production dans le dossier `build`.
+  
+### `npm start` (dans le dossier backend)
+- Lance le serveur Node.js sur [http://localhost:3001](http://localhost:3001) pour gérer les requêtes API.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## **Installation**  
+1. **Clonez le projet** :  
+   `git clone https://github.com/Bee042/simulateur_v3.git`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Installez les dépendances** du front-end et du back-end :  
+   - Front-end : `npm install` dans le dossier racine.
+   - Back-end : `npm install` dans le dossier backend.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Lancez le serveur et l'application** :  
+   - Back-end : `npm start` dans le dossier backend.
+   - Front-end : `npm start` dans la racine du projet.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> feature/modif
+## **Développé par**  
+- Barbara B.
