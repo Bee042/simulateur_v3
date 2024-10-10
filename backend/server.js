@@ -1,40 +1,43 @@
-// Importation des modules nécessaires
-const express = require('express'); // Express pour créer le serveur
+const express = require("express"); // Express pour créer le serveur
 const app = express(); // Initialisation de l'application Express
 const PORT = 3001; // Le port sur lequel le serveur va écouter
-const sequelize = require('./config/db'); // Importation de la configuration de la base de données
-const authRoutes = require('./routes/auth'); // Importation des routes d'authentification
+const sequelize = require("./config/db"); // Importation de la configuration de la base de données
+const authRoutes = require("./routes/auth"); // Importation des routes d'authentification
 
+const cors = require("cors"); // Middleware to handle Cross-Origin Resource Sharing (CORS)
+app.use(cors()); // Enable CORS to allow requests from different origins
 
-// Importation des modèles
-// const User = require('./models/User');
-// const FormData = require('./models/FormData');
-// const Helps = require('./models/Helps');
+// Middleware to handle JSON request bodies
+// This allows the server to accept requests with JSON payloads
+app.use(express.json());
 
-const cors = require('cors'); // Importation du middleware CORS
-app.use(cors()); // Utilisation de CORS pour autoriser les requêtes cross-origin
+// Use the authentication routes for all requests that start with '/react'
+app.use("/react", authRoutes);
 
-// Middleware pour traiter les données JSON
-app.use(express.json()); // Cela permet au serveur d'accepter les requêtes au format JSON
-
-app.use('/react', authRoutes); // Toutes les routes d'authentification commenceront par /auth
-
-
-// Route de test pour vérifier que le serveur fonctionne
-app.get('/', (req, res) => {
-  res.send('Le serveur fonctionne !'); // Envoie une réponse pour confirmer que le serveur tourne
+// Test route to verify if the server is running correctly
+app.get("/", (req, res) => {
+  // Sends a response to confirm that the server is operational
+  res.send("Le serveur fonctionne !");
 });
 
-// Synchronisation des modèles avec la base de données
-sequelize.sync() // Ceci synchronise la base de données et lit la variable sequelize
+// Synchronize the models with the database
+// Alter true: this will attempt to adjust the database schema to match the models without losing data
+sequelize
+  .sync({ alter: true })
   .then(() => {
-    console.log('La synchronisation avec la base de données a réussi.');
+    // successfull synchronization
   })
-  .catch(err => {
-    console.error('Erreur lors de la synchronisation avec la base de données :', err);
+  .catch((err) => {
+    /**
+     * If the connection fails:
+     * - `throw new Error()` creates a custom error message (instead of console logs)
+     * - `err` includes the original error details from Sequelize, giving more information about what went wrong.
+     */
+    throw new Error(
+      "Erreur lors de la synchronisation avec la base de données :",
+      err
+    );
   });
 
-// Lancement du serveur sur le port spécifié
-app.listen(PORT, () => {
-  console.log(`Le serveur est démarré et écoute sur le port ${PORT}`); // Message dans le terminal pour dire que le serveur fonctionne
-});
+// Start the server on the specified port
+app.listen(PORT, () => {});
