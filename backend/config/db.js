@@ -1,21 +1,36 @@
-// Importation des modules nécessaires
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-// Création d'une instance Sequelize pour se connecter à la base de données
-const sequelize = new Sequelize('bdd_simulateur', 'root', '', {
-  host: 'localhost', // Adresse du serveur MySQL (ici en local)
-  dialect: 'mysql', // Type de base de données (MySQL)
-  logging: false // Désactive les logs SQL pour rendre la console plus lisible
+/**
+ ** Creating a Sequelize instance to connect to the MySQL database
+ * Sequelize abstracts SQL queries into JS methods, streamlining database interactions.
+ * It manages model definitions, relationships, and data validation while offering easy
+ * cross-database compatibility. Additionally, Sequelize handles schema synchronization,
+ * ensuring the DB stays in sync with model changes.
+ */
+const sequelize = new Sequelize("bdd_simulateur", "root", "", {
+  host: "localhost", // Host where MySQL server is running (localhost)
+  dialect: "mysql", // Type of database used (MySQL)
+  logging: false, // Disables SQL query logs for cleaner console output
 });
 
-// Test de la connexion à la base de données
-sequelize.authenticate()
+
+/**
+ ** Testing connection to DB
+ */ 
+sequelize
+  .authenticate()
   .then(() => {
-    console.log('Connexion à la base de données réussie !');
+    // Connection successful
   })
-  .catch(err => {
-    console.error('Erreur de connexion à la base de données :', err);
+  .catch((err) => {
+    /**
+     * If the connection fails:
+     * - `throw new Error()` creates a custom error message (instead of console logs)
+     * - `err` includes the original error details from Sequelize, giving more information about what went wrong.
+     */
+    throw new Error("Echec de connexion à la base de données :", err);
   });
 
-// Exportation de l'instance Sequelize pour l'utiliser dans d'autres fichiers
+
+
 module.exports = sequelize;
