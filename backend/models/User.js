@@ -1,21 +1,35 @@
-// Importation des modules nécessaires
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/db');
+const { DataTypes } = require('sequelize'); // DataTypes is used to define the type of each field in the model
+const sequelize = require('../config/db'); // Import the Sequelize instance, represents the connection to the db
 
-// Définition du modèle User
+
+/**
+ ** CREATE THE USER TABLE 
+ * Define the User model using Sequelize's define method.
+ * This model will represent the 'users' table in the db
+ * and defines the structure of the table.
+ * The model contains two main fields: 'pseudo' and 'email'.
+ */
+
 const User = sequelize.define('User', {
+  
   pseudo: {
-    type: DataTypes.STRING, // Chaîne de caractères pour stocker le pseudo
-    allowNull: false // Le pseudo ne doit pas être vide
+    type: DataTypes.STRING, // Defines the 'pseudo' field as a string (text data)
+    allowNull: false // Field required, cannot be null
   },
+
+   /**
+   * 'email' is a string field that stores the user's email address.
+   * - DataTypes.STRING: Specifies that this field will also store text data (email in this case).
+   * - allowNull: false means that the email is required and cannot be empty.
+   * - unique: true ensures that every user has a unique email, preventing duplicates in the database.
+   */
   email: {
-    type: DataTypes.STRING, // Chaîne de caractères pour stocker l'email
-    allowNull: false, // L'email ne doit pas être vide
-    unique: true // L'email doit être unique dans la base de données
+    type: DataTypes.STRING, // Defines the 'email' field as a string, stores the mail of the user
+    allowNull: false, // Field  required, cannot be null
+    unique: true // Ensures that each email is unique in the database
   }
 }, {
-  timestamps: true // Ajoute les colonnes createdAt et updatedAt automatiquement
+  timestamps: true // Automatically adds 'createdAt' and 'updatedAt' columns to the table (fron Sequelize)
 });
 
-// Exportation du modèle pour pouvoir l'utiliser dans d'autres fichiers
 module.exports = User;
